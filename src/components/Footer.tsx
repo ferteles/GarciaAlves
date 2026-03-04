@@ -2,11 +2,11 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer id="contato" className="bg-white py-20 lg:py-32 relative overflow-hidden">
+        <footer id="contato" className="bg-accent pt-20 lg:pt-32 relative overflow-hidden flex flex-col">
             {/* Background overlay similar to Figma */}
             <div className="absolute inset-0 bg-gray-light mix-blend-luminosity opacity-25 pointer-events-none" />
 
-            <div className="max-w-[1512px] mx-auto px-10 lg:px-20 relative z-10">
+            <div className="max-w-[1512px] mx-auto px-10 lg:px-20 relative z-10 w-full flex-1">
 
                 {/* Contact Form Section */}
                 <div className="mb-24 lg:mb-40 max-w-4xl">
@@ -63,6 +63,14 @@ export default function Footer() {
                         <p className="mb-1">Setor Comercial Norte Quadra 04</p>
                         <p className="mb-1">BL B - Asa Norte, Brasília - DF</p>
                     </div>
+                </div>
+            </div>
+
+            {/* Giant Logo Text */}
+            <div className="w-full relative z-10 mt-20 lg:mt-32 uppercase font-handel text-[25vw] sm:text-[20vw] lg:text-[16vw] xl:text-[230px] leading-[0.75] tracking-tighter text-black flex flex-col justify-end">
+                <div className="max-w-[1512px] mx-auto px-10 lg:px-20 w-full flex flex-col">
+                    <span className="block -ml-[0.05em]">garcia</span>
+                    <span className="block -ml-[0.05em]">alves</span>
                 </div>
             </div>
         </footer>

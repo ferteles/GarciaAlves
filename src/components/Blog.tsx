@@ -1,33 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { posts } from "@/data/posts";
+
 export default function Blog() {
-    const posts = [
-        {
-            title: "Liderança em políticas digitais",
-            excerpt: "Participação ativa na formulação de políticas públicas digitais e atuação como Policy Manager no Brasil pela ALAI (Latin American Internet Association), unindo inovação, regulação e prática jurídica tradicional.",
-            image: "/assets/92b7e35d29404d2522ca019474ce18914a35b4c7.png",
-            link: "#"
-        },
-        {
-            title: "Liderança em políticas digitais",
-            excerpt: "Participação ativa na formulação de políticas públicas digitais e atuação como Policy Manager no Brasil pela ALAI (Latin American Internet Association), unindo inovação, regulação e prática jurídica tradicional.",
-            image: "/assets/92b7e35d29404d2522ca019474ce18914a35b4c7.png",
-            link: "#"
-        },
-        {
-            title: "Liderança em políticas digitais",
-            excerpt: "Participação ativa na formulação de políticas públicas digitais e atuação como Policy Manager no Brasil pela ALAI (Latin American Internet Association), unindo inovação, regulação e prática jurídica tradicional.",
-            image: "/assets/92b7e35d29404d2522ca019474ce18914a35b4c7.png",
-            link: "#"
-        },
-        {
-            title: "Liderança em políticas digitais",
-            excerpt: "Participação ativa na formulação de políticas públicas digitais e atuação como Policy Manager no Brasil pela ALAI (Latin American Internet Association), unindo inovação, regulação e prática jurídica tradicional.",
-            image: "/assets/92b7e35d29404d2522ca019474ce18914a35b4c7.png",
-            link: "#"
-        }
-    ];
 
     return (
         <section id="blog" className="relative w-full py-32 lg:py-48 bg-background text-foreground">
@@ -65,7 +41,7 @@ export default function Blog() {
 
                                 <div className="flex items-center gap-4 mt-auto">
                                     <div className="w-[67px] h-px bg-[#d9d9d9] group-hover:bg-primary transition-colors" />
-                                    <Link href={post.link} className="font-motiva text-[14.587px] uppercase tracking-wider text-foreground hover:text-primary transition-colors">
+                                    <Link href={`/blog/${post.slug}`} className="font-motiva text-[14.587px] uppercase tracking-wider text-foreground hover:text-primary transition-colors">
                                         Leia mais
                                     </Link>
                                 </div>

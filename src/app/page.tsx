@@ -4,7 +4,6 @@ import About from "@/components/About";
 import PracticeAreas from "@/components/PracticeAreas";
 import Numbers from "@/components/Numbers";
 import Lawyers from "@/components/Lawyers";
-import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <PracticeAreas />
       <Numbers />
       <Lawyers />
-      <Blog />
       <Footer />
     </main>
   );
