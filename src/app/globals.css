@@ -18,8 +18,8 @@
   --color-overlay: var(--color-overlay);
   --color-gray-dark: var(--color-gray-dark);
   --color-gray-light: var(--color-gray-light);
-  --font-sans: "Motiva Sans", var(--font-inter), sans-serif;
-  --font-heading: "HandelGothic", var(--font-space-grotesk), sans-serif;
+  --font-sans: var(--font-motiva-sans), var(--font-inter), sans-serif;
+  --font-heading: var(--font-handel-gothic), var(--font-space-grotesk), sans-serif;
 }
 
 body {

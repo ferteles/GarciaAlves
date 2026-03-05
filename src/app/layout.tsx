@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,6 +11,16 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+});
+
+const motivaSans = localFont({
+  src: "../../public/assets/MotivaSansRegular.woff.ttf",
+  variable: "--font-motiva-sans",
+});
+
+const handelGothic = localFont({
+  src: "../../public/assets/HandelGothic TL Kirillica.ttf",
+  variable: "--font-handel-gothic",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans text-foreground bg-background`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${motivaSans.variable} ${handelGothic.variable} antialiased font-sans text-foreground bg-background`}>
         {children}
       </body>
     </html>
