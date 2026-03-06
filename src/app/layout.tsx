@@ -19,8 +19,9 @@ const motivaSans = localFont({
 });
 
 const handelGothic = localFont({
-  src: "../../public/assets/HandelGothic TL Kirillica.ttf",
+  src: "../../public/assets/HandelGothic.ttf",
   variable: "--font-handel-gothic",
+  weight: "400",
 });
 
 export const metadata: Metadata = {

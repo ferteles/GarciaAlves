@@ -45,7 +45,7 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div className="flex flex-col gap-4 font-handel text-xl tracking-wide">
+                    <div className="flex flex-col gap-4 font-motiva text-xl tracking-wide">
                         <Link href="#quem-somos" className="hover:text-primary transition-colors">quem somos</Link>
                         <Link href="#areas" className="hover:text-primary transition-colors">áreas de atuação</Link>
                         <Link href="#advogados" className="hover:text-primary transition-colors">advogados</Link>
@@ -58,7 +58,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    <div className="font-handel text-xl tracking-wide">
+                    <div className="font-motiva text-xl tracking-wide">
                         <p className="mb-1">Centro Empresarial Varig</p>
                         <p className="mb-1">Setor Comercial Norte Quadra 04</p>
                         <p className="mb-1">BL B - Asa Norte, Brasília - DF</p>
