@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'MotivaSans';
+  src: url('/MotivaSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HandelGothic';
+  src: url('/HandelGothic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #232323;
@@ -18,9 +34,10 @@
   --color-overlay: var(--color-overlay);
   --color-gray-dark: var(--color-gray-dark);
   --color-gray-light: var(--color-gray-light);
-  --font-sans: var(--font-motiva-sans), var(--font-inter), sans-serif;
-  --font-heading: var(--font-handel-gothic), var(--font-space-grotesk), sans-serif;
-  --font-handel: var(--font-handel-gothic), var(--font-space-grotesk), sans-serif;
+  --font-sans: 'MotivaSans', sans-serif;
+  --font-heading: 'HandelGothic', sans-serif;
+  --font-motiva: 'MotivaSans', sans-serif;
+  --font-handel: 'HandelGothic', sans-serif;
 }
 
 body {
@@ -33,6 +50,20 @@ body {
   font-family: var(--font-sans);
 }
 
+.font-handel {
+  font-family: var(--font-heading);
+}
+
 * {
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading {
+  font-family: var(--font-heading);
 }
