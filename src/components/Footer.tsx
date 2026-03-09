@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-const imgGroup = "http://localhost:3845/assets/b9d1bb04494e3a73bf98c053fea148ac555add0e.svg";
-const imgGroup2 = "http://localhost:3845/assets/4194d183abd6ca9c535cb2fec06388ea4fe1cfa2.svg";
-const imgRectangle27 = "http://localhost:3845/assets/6e0b5c610eaa9e9576dc2f40d3cc87fd56fab813.png";
+const imgGroup = "/assets/b9d1bb04494e3a73bf98c053fea148ac555add0e.svg";
+const imgGroup2 = "/assets/4194d183abd6ca9c535cb2fec06388ea4fe1cfa2.svg";
+const imgRectangle27 = "/assets/6e0b5c610eaa9e9576dc2f40d3cc87fd56fab813.png";
 
 export default function Footer() {
     return (

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const imgGroup1 = "http://localhost:3845/assets/7fa17b67e0e71de8c6bb1cbc7efbaf4271091096.svg";
+const imgGroup1 = "/assets/7fa17b67e0e71de8c6bb1cbc7efbaf4271091096.svg";
 
 export default function TopNav() {
     const [isOpen, setIsOpen] = useState(false);
