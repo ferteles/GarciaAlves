@@ -57,7 +57,7 @@ export default function Lawyers() {
                             <div className="w-full h-px bg-white/30 mb-8 max-w-[343px]" />
 
                             {/* Info */}
-                            <h3 className="font-handel text-2xl lg:text-[29.985px] mb-6">
+                            <h3 className="font-motiva text-2xl lg:text-[29.985px] mb-6">
                                 {lawyer.name}
                             </h3>
 
@@ -65,7 +65,7 @@ export default function Lawyers() {
                                 href={lawyer.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-handel text-[19.128px] underline underline-offset-4 decoration-1 hover:text-accent transition-colors mb-8 inline-block"
+                                className="font-motiva text-[19.128px] underline underline-offset-4 decoration-1 hover:text-accent transition-colors mb-8 inline-block"
                             >
                                 Linkedin
                             </a>

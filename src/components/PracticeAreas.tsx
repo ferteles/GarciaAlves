@@ -55,7 +55,7 @@ export default function PracticeAreas() {
                             </p>
 
                             <button className="mt-8 self-start flex items-center gap-4 text-foreground hover:text-primary transition-colors group">
-                                <span className="font-handel text-2xl lg:text-[26px]">entre em contato</span>
+                                <span className="font-motiva text-2xl lg:text-[26px]">entre em contato</span>
                                 <span className="w-12 h-px bg-current group-hover:bg-primary transition-colors" />
                             </button>
                         </div>

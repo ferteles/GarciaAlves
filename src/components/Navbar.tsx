@@ -18,7 +18,7 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                <div className="hidden lg:flex items-center gap-10 font-handel text-xl tracking-wide">
+                <div className="hidden lg:flex items-center gap-10 font-motiva text-xl tracking-wide">
                     <Link href="#quem-somos" className="hover:text-primary transition-colors">
                         quem somos
                     </Link>
