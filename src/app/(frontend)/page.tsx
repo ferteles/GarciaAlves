@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const imgRectangle1 = "/assets/86d273113bb1a35613663a9ee773c9bc0f6a01e8.png";
 const imgRectangle7 = "/assets/6e8235f6c9c82055692e7a321b167e3a45be58d6.png";
