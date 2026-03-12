@@ -34,7 +34,7 @@ export default function About() {
                 <div className="flex-1 relative min-h-[400px] lg:h-[586px] w-full max-w-[467px] mx-auto lg:mx-0">
                     <div className="absolute inset-0 bg-[#d9d9d9]">
                         <Image
-                            src="/assets/6e8235f6c9c82055692e7a321b167e3a45be58d6.png"
+                            src="/assets/corporate-space.png"
                             alt="Sobre nós"
                             fill
                             className="object-cover"

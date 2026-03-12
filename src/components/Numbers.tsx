@@ -20,7 +20,7 @@ export default function Numbers() {
                 <div className="w-full h-full relative">
                     <div className="absolute inset-0 bg-[#d9d9d9]" />
                     <Image
-                        src="/assets/1cd630051da6a703f68195535fc1cd5f62bce814.png"
+                        src="/assets/azulejos.png"
                         alt="Escritório em números background"
                         fill
                         className="object-cover"

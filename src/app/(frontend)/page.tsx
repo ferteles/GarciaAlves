@@ -3,11 +3,11 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const imgRectangle1 = "/assets/86d273113bb1a35613663a9ee773c9bc0f6a01e8.png";
-const imgRectangle7 = "/assets/6e8235f6c9c82055692e7a321b167e3a45be58d6.png";
-const imgRectangle8 = "/assets/1cd630051da6a703f68195535fc1cd5f62bce814.png";
-const imgRectangle10 = "/assets/ade156cb737fa832bc5d0210a0475d4e054f3942.png";
-const imgRectangle19 = "/assets/92b7e35d29404d2522ca019474ce18914a35b4c7.png";
+const imgRectangle1 = "/assets/hero-bg.png";
+const imgRectangle7 = "/assets/corporate-space.png";
+const imgRectangle8 = "/assets/azulejos.png";
+const imgRectangle10 = "/assets/sergio-garcia-alves.png";
+const imgRectangle19 = "/assets/post-thumbnail.png";
 
 export default function Home() {
   return (

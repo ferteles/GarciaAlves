@@ -52,7 +52,7 @@ export default function Navbar() {
                 <div className="flex-shrink-0 z-50">
                     <Link href="/" className="block">
                         <Image
-                            src="/assets/7fa17b67e0e71de8c6bb1cbc7efbaf4271091096.svg"
+                            src="/assets/logo.svg"
                             alt="Garcia Alves Logo"
                             width={343}
                             height={64}

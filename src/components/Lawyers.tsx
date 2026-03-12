@@ -7,25 +7,25 @@ export default function Lawyers() {
             name: "Sérgio Garcia Alves",
             bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
             linkedin: "https://linkedin.com",
-            image: "/assets/ade156cb737fa832bc5d0210a0475d4e054f3942.png",
+            image: "/assets/sergio-garcia-alves.png",
         },
         {
             name: "Sérgio Garcia Alves",
             bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
             linkedin: "https://linkedin.com",
-            image: "/assets/ade156cb737fa832bc5d0210a0475d4e054f3942.png",
+            image: "/assets/sergio-garcia-alves.png",
         },
         {
             name: "Sérgio Garcia Alves",
             bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
             linkedin: "https://linkedin.com",
-            image: "/assets/ade156cb737fa832bc5d0210a0475d4e054f3942.png",
+            image: "/assets/sergio-garcia-alves.png",
         },
         {
             name: "Sérgio Garcia Alves",
             bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
             linkedin: "https://linkedin.com",
-            image: "/assets/ade156cb737fa832bc5d0210a0475d4e054f3942.png",
+            image: "/assets/sergio-garcia-alves.png",
         }
     ];
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-const imgGroup1 = "/assets/7fa17b67e0e71de8c6bb1cbc7efbaf4271091096.svg";
+const imgGroup1 = "/assets/logo.svg";
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);

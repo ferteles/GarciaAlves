@@ -6,7 +6,7 @@ export default function Hero() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0 bg-[#d9d9d9]">
                 <Image
-                    src="/assets/86d273113bb1a35613663a9ee773c9bc0f6a01e8.png"
+                    src="/assets/hero-bg.png"
                     alt="Hero Background"
                     fill
                     className="object-cover"
