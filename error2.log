@@ -1,0 +1,21 @@
+
+> garcia-alves@0.1.0 generate:types
+> payload generate:types
+
+C:\Users\ferte\OneDrive\Documents\GarciaAlves\node_modules\undici\lib\web\webidl\index.js:34
+  return new TypeError(`${message.header}: ${message.message}`)
+         ^
+
+TypeError: TypeError: Illegal constructor
+    at webidl.errors.exception (C:\Users\ferte\OneDrive\Documents\GarciaAlves\node_modules\undici\lib\web\webidl\index.js:34:10)
+    at webidl.illegalConstructor (C:\Users\ferte\OneDrive\Documents\GarciaAlves\node_modules\undici\lib\web\webidl\index.js:106:23)
+    at new CacheStorage (C:\Users\ferte\OneDrive\Documents\GarciaAlves\node_modules\undici\lib\web\cache\cachestorage.js:17:14)
+    at Object.<anonymous> (C:\Users\ferte\OneDrive\Documents\GarciaAlves\node_modules\undici\index.js:145:25)
+    at Module._compile (node:internal/modules/cjs/loader:1369:14)
+    at Object.transformer [as .js] (file:///C:/Users/ferte/OneDrive/Documents/GarciaAlves/node_modules/tsx/dist/register-CFH5oNdT.mjs:3:1009)
+    at Module.load (node:internal/modules/cjs/loader:1206:32)
+    at Module._load (node:internal/modules/cjs/loader:1022:12)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+    at require (node:internal/modules/helpers:179:18)
+
+Node.js v20.12.2

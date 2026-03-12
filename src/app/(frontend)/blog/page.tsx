@@ -1,10 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { posts } from "@/data/posts";
 import Navbar from "@/components/Navbar";
 import BlogFooter from "@/components/BlogFooter";
+import { getPayload } from "payload"
+import configPromise from '@payload-config'
 
-export default function BlogListing() {
+export default async function BlogListing() {
+    const payload = await getPayload({ config: configPromise })
+    
+    const postsData = await payload.find({
+        collection: 'posts' as any,
+        sort: '-date',
+    })
+    const posts: any[] = postsData.docs
+
     const categories = ["Todos", "Inovação", "Regulação", "Políticas Públicas", "Tecnologia", "Inteligência Artificial", "Startups"];
 
     return (
@@ -55,21 +64,27 @@ export default function BlogListing() {
                         <div className="max-w-[1512px] mx-auto px-6 lg:px-20 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
                             {/* Image */}
                             <div className="relative w-full lg:w-[45%] aspect-[4/3] bg-gray-300 overflow-hidden shrink-0">
-                                <Image
-                                    src={post.image}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                />
+                                {post.image && typeof post.image === 'object' && post.image.url && (
+                                    <Image
+                                        src={post.image.url}
+                                        alt={post.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                )}
                             </div>
                             {/* Content */}
                             <div className="flex flex-col flex-1">
                                 <div className="flex flex-wrap items-center gap-2 md:gap-4 font-motiva text-xs md:text-sm lg:text-[15px] font-bold uppercase tracking-widest mb-4 lg:mb-6">
-                                    <span className="text-black">{post.category?.[0] || 'Artigo'}</span>
+                                    <span className="text-black">
+                                        {post.category && post.category.length > 0 ? post.category[0] : 'Artigo'}
+                                    </span>
                                     {post.date && (
                                         <>
                                             <span className="text-foreground/40 hidden md:block">•</span>
-                                            <span className="text-foreground/40">{post.date}</span>
+                                            <span className="text-foreground/40">
+                                                {new Date(post.date).toLocaleDateString("pt-BR", { day: '2-digit', month: 'short', year: 'numeric' })}
+                                            </span>
                                         </>
                                     )}
                                 </div>

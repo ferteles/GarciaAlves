@@ -1,12 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPostBySlug, getRelatedPosts } from "@/data/posts";
 import Navbar from "@/components/Navbar";
 import BlogFooter from "@/components/BlogFooter";
+import { getPayload } from "payload"
+import configPromise from '@payload-config'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
-    const post = getPostBySlug(resolvedParams.slug);
+    
+    const payload = await getPayload({ config: configPromise })
+    
+    const postsData = await payload.find({
+        collection: 'posts' as any,
+        where: {
+            slug: {
+                equals: resolvedParams.slug
+            }
+        },
+        limit: 1
+    })
+
+    const post: any = postsData.docs[0];
 
     if (!post) {
         return (
@@ -21,7 +36,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         );
     }
 
-    const relatedPosts = getRelatedPosts(post.slug, 3);
+    const relatedData = await payload.find({
+        collection: 'posts' as any,
+        where: {
+            slug: {
+                not_equals: post.slug
+            }
+        },
+        sort: '-date',
+        limit: 3
+    })
+    const relatedPosts: any[] = relatedData.docs;
 
     return (
         <main className="min-h-screen relative w-full overflow-x-hidden bg-background">
@@ -37,13 +62,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             {/* Post Hero Image */}
             <div className="max-w-[1512px] mx-auto px-6 lg:px-20 pt-16">
                 <div className="relative w-full h-[40vh] md:h-[60vh] bg-[#f1f1f1] overflow-hidden">
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                        priority
-                    />
+                    {post.image && typeof post.image === 'object' && post.image.url && (
+                        <Image
+                            src={post.image.url}
+                            alt={post.title}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    )}
                 </div>
             </div>
 
@@ -74,23 +101,33 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     {/* Header Content */}
                     <div className="mb-16">
                         <div className="flex flex-wrap items-center gap-4 font-motiva text-sm font-bold uppercase tracking-widest mb-6">
-                            <span className="text-black">{post.category?.join(" • ")}</span>
-                            <span className="text-foreground/40">•</span>
-                            <span className="text-foreground/40">{post.date}</span>
+                            <span className="text-black">{post.category && post.category.length > 0 ? post.category.join(" • ") : 'Artigo'}</span>
+                            {post.date && (
+                                <>
+                                    <span className="text-foreground/40">•</span>
+                                    <span className="text-foreground/40">{new Date(post.date).toLocaleDateString("pt-BR", { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                                </>
+                            )}
                         </div>
 
                         <h1 className="font-handel text-4xl md:text-5xl lg:text-[70px] leading-[1.05] tracking-tight mb-10 text-black">
                             {post.title}
                         </h1>
 
-                        <div className="font-motiva text-sm text-foreground/40 font-bold uppercase tracking-widest">
-                            {post.date}
-                        </div>
+                        {post.date && (
+                            <div className="font-motiva text-sm text-foreground/40 font-bold uppercase tracking-widest">
+                                {new Date(post.date).toLocaleDateString("pt-BR", { day: '2-digit', month: 'short', year: 'numeric' })}
+                            </div>
+                        )}
                     </div>
 
                     {/* Article Body */}
-                    <div className="font-motiva text-lg lg:text-xl leading-relaxed text-black/80 whitespace-pre-wrap mb-24">
-                        {post.content}
+                    <div className="font-motiva text-lg lg:text-xl leading-relaxed text-black/80 mb-24 payload-richtext">
+                        {post.content && typeof post.content === 'object' ? (
+                            <RichText data={post.content} />
+                        ) : (
+                            <div className="whitespace-pre-wrap">{post.content}</div>
+                        )}
                     </div>
 
                     {/* Related Articles Section */}

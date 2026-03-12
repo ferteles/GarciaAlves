@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LatestPosts from "@/components/LatestPosts";
 
 const imgRectangle1 = "/assets/hero-bg.png";
 const imgRectangle7 = "/assets/corporate-space.png";
 const imgRectangle8 = "/assets/azulejos.png";
 const imgRectangle10 = "/assets/sergio-garcia-alves.png";
-const imgRectangle19 = "/assets/post-thumbnail.png";
+
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
@@ -199,26 +200,8 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="flex flex-col gap-4 lg:gap-6 mb-16 max-w-[1200px] mx-auto">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="group flex flex-col md:flex-row w-full bg-[#e2e2e2] cursor-pointer hover:bg-[#d5d5d5] transition-colors">
-                <div className="w-full md:w-[300px] lg:w-[450px] aspect-[16/9] md:aspect-auto md:h-[220px] lg:h-[280px] bg-[#d9d9d9] overflow-hidden flex-shrink-0 relative">
-                  <img src={imgRectangle19} alt="Post Thumbnail" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="flex flex-col justify-center p-8 lg:p-12 flex-1 relative">
-                  <h3 className="font-handel text-[24px] lg:text-[33.17px] leading-[1.1] mb-4 text-gray-dark">Liderança em políticas digitais</h3>
-                  <p className="font-motiva text-[16px] lg:text-[18px] leading-[1.5] text-gray-600 mb-6 max-w-[600px]">Participação ativa na formulação de políticas públicas digitais e atuação como Policy Manager no Brasil pela ALAI (Latin American Internet Association), unindo inovação, regulação e prática jurídica tradicional.</p>
-                  <span className="font-motiva font-bold uppercase text-[14px] text-gray-dark group-hover:text-primary transition-colors block border-t-[2px] border-black pt-4 w-fit">{t.publications.read_more}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-center lg:mt-[60px] relative w-full pt-10">
-            <Link href="/blog" className="font-handel text-[24px] lg:text-[35px] text-gray-dark hover:text-primary transition-colors inline-block text-center relative z-10 bg-overlay px-8">
-              {t.publications.see_all}
-            </Link>
-          </div>
+          <LatestPosts />
+          
           <div className="hidden lg:block absolute left-0 right-0 h-[2px] bg-black bottom-[22px] lg:bottom-[22px] -z-0"></div>
         </div>
       </section>
