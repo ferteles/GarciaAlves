@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const { language, setLanguage, t } = useLanguage();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -33,6 +35,10 @@ export default function Navbar() {
     const logoWidth = isMobile
         ? (scrolled ? "110px" : "140px")
         : (scrolled ? "240px" : "343px");
+
+    const toggleLanguage = () => {
+        setLanguage(language === "pt" ? "en" : "pt");
+    };
 
     return (
         <nav
@@ -71,29 +77,35 @@ export default function Navbar() {
                     style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
                 >
                     <Link href="#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
-                        quem somos
+                        {t.nav.about}
                     </Link>
                     <Link href="#areas" className="hover:text-primary transition-colors whitespace-nowrap">
-                        áreas de atuação
+                        {t.nav.expertise}
                     </Link>
                     <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
-                        advogados
+                        {t.nav.lawyers}
                     </Link>
                     <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
-                        contato
+                        {t.nav.contact}
                     </Link>
                     <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
-                        blog
+                        {t.nav.blog}
                     </Link>
-                    <button className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap">
-                        PT/EN
+                    <button 
+                        onClick={toggleLanguage}
+                        className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap bg-gray-100 px-3 py-1 rounded cursor-pointer"
+                    >
+                        {language === "pt" ? "PT / en" : "pt / EN"}
                     </button>
                 </div>
 
                 {/* Mobile: PT/EN + Hamburger */}
                 <div className="flex lg:hidden items-center gap-3 z-50 shrink-0">
-                    <button className="text-primary font-bold text-xs whitespace-nowrap">
-                        PT/EN
+                    <button 
+                        onClick={toggleLanguage}
+                        className="text-primary font-bold text-xs whitespace-nowrap bg-gray-100 px-2 py-1 rounded"
+                    >
+                        {language === "pt" ? "PT / en" : "pt / EN"}
                     </button>
                     <button
                         className="text-black p-1 focus:outline-none"
@@ -132,19 +144,19 @@ export default function Navbar() {
                 }}
             >
                 <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    quem somos
+                    {t.nav.about}
                 </Link>
                 <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    áreas de atuação
+                    {t.nav.expertise}
                 </Link>
                 <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    advogados
+                    {t.nav.lawyers}
                 </Link>
                 <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    blog
+                    {t.nav.blog}
                 </Link>
                 <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    contato
+                    {t.nav.contact}
                 </Link>
             </div>
         </nav>

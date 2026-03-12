@@ -1,9 +1,13 @@
+"use client";
+
 import Link from 'next/link';
+import { useLanguage } from "@/context/LanguageContext";
 
 const imgGroup = "/assets/Group2.svg";
 const imgRectangle27 = "/assets/6e0b5c610eaa9e9576dc2f40d3cc87fd56fab813.png";
 
 export default function Footer() {
+    const { t } = useLanguage();
     return (
         <footer id="contato" className="relative w-full bg-accent overflow-hidden pt-20 pb-20 lg:pt-32 lg:pb-32">
             {/* Decorative Texture overlays */}
@@ -24,20 +28,20 @@ export default function Footer() {
 
                 {/* Form Section */}
                 <div className="flex flex-col w-full mb-20 lg:mb-32 lg:max-w-[1100px]">
-                    <h3 className="font-handel text-[20px] lg:text-[25px] leading-[1] text-black mb-4 uppercase lg:normal-case">Sua mensagem é importante para nós</h3>
+                    <h3 className="font-handel text-[20px] lg:text-[25px] leading-[1] text-black mb-4 uppercase lg:normal-case">{t.footer_contact.title}</h3>
                     <form className="flex flex-col md:flex-row w-full">
                         <input
                             type="email"
-                            placeholder="EMAIL"
+                            placeholder={t.footer_contact.email_placeholder}
                             className="bg-[#e9e9e9]/80 px-8 py-5 lg:h-[64px] font-motiva font-bold text-[18px] lg:text-[18px] text-gray-700 placeholder:text-[#8c8c8c] outline-none focus:bg-white transition-colors w-full shrink-0 md:w-[350px]"
                         />
                         <input
                             type="text"
-                            placeholder="BREVE MENSAGEM"
+                            placeholder={t.footer_contact.message_placeholder}
                             className="bg-[#e9e9e9]/80 px-8 py-5 lg:h-[64px] font-motiva font-bold text-[18px] lg:text-[18px] text-gray-700 placeholder:text-[#8c8c8c] outline-none focus:bg-white transition-colors w-full flex-1 border-t md:border-t-0 md:border-l border-white/50"
                         />
                         <button type="submit" className="bg-[#1a05f3] hover:bg-[#1003ba] text-white font-motiva font-bold text-[18px] lg:text-[18px] lg:h-[64px] py-5 px-10 flex items-center justify-center transition-colors shrink-0">
-                            ENVIAR
+                            {t.footer_contact.send}
                         </button>
                     </form>
                 </div>
@@ -45,23 +49,23 @@ export default function Footer() {
                 {/* Links Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
                     <div className="flex flex-col gap-4 lg:col-span-4 xl:col-span-3 lg:pl-[12px]">
-                        <Link href="#quem-somos" className="hover:text-primary transition-colors lowercase">quem somos</Link>
-                        <Link href="#areas" className="hover:text-primary transition-colors lowercase">áreas de atuação</Link>
-                        <Link href="#advogados" className="hover:text-primary transition-colors lowercase">advogados</Link>
-                        <Link href="/blog" className="hover:text-primary transition-colors lowercase">blog</Link>
-                        <Link href="#contato" className="hover:text-primary transition-colors lowercase">contato</Link>
+                        <Link href="#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
+                        <Link href="#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
+                        <Link href="#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
+                        <Link href="/blog" className="hover:text-primary transition-colors lowercase">{t.nav.blog}</Link>
+                        <Link href="#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-3">
                         <a href="#" className="hover:text-primary transition-colors lowercase">linkedin</a>
                         <a href="mailto:contato@garciaalves.com" className="hover:text-primary transition-colors lowercase mt-auto mb-10">contato@garciaalves.com</a>
                     </div>
                     <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1">
-                        <p className="m-0 lowercase leading-[1.3]">Centro Empresarial Varig</p>
-                        <p className="m-0 lowercase leading-[1.3]">Setor Comercial Norte Quadra 04</p>
-                        <p className="m-0 lowercase leading-[1.3]">BL B - Asa Norte, Brasília - DF</p>
+                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[0]}</p>
+                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[1]}</p>
+                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[2]}</p>
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-2 pt-1 lg:items-end">
-                        <span className="text-black lg:hidden">Telefone</span>
+                        <span className="text-black lg:hidden">{t.footer_contact.phone_label}</span>
                         <a href="tel:61999999999" className="hover:text-primary transition-colors">61 9 9999 9999</a>
                     </div>
                 </div>

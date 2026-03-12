@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: "Advocacia especializada em Direito Empresarial, Regulatório e Tecnologia.",
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body className="antialiased font-sans text-foreground bg-background" suppressHydrationWarning>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
