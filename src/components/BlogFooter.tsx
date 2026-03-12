@@ -3,7 +3,7 @@ export default function BlogFooter() {
         <section className="relative w-full bg-primary pt-24 lg:pt-32 overflow-hidden flex flex-col justify-between">
             <div className="max-w-[1512px] mx-auto w-full px-6 lg:px-20 flex flex-col lg:flex-row justify-between items-start z-10">
                 <div className="max-w-[500px]">
-                    <h2 className="font-handel text-4xl lg:text-[60px] leading-none text-black mb-4">
+                    <h2 className="font-handel text-3xl md:text-4xl lg:text-[60px] leading-none text-black mb-4">
                         REG.TECH.LAW<span className="text-white">.ALL</span>
                     </h2>
                     <p className="font-motiva text-xl font-bold text-black mt-4">

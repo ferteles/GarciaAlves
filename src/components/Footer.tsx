@@ -14,7 +14,7 @@ export default function Footer() {
             <div className="w-full max-w-[1512px] mx-auto px-6 lg:px-[123px] relative z-20">
                 {/* Intro */}
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-[16px] xl:gap-[100px] items-start mb-16 lg:mb-24 mt-4 lg:mt-12">
-                    <h2 className="font-handel text-[50px] lg:text-[61.8px] leading-[1] text-gray-dark lg:whitespace-nowrap flex-shrink-0">
+                    <h2 className="font-handel text-[35px] md:text-[50px] lg:text-[61.8px] leading-[1] text-gray-dark lg:whitespace-nowrap flex-shrink-0">
                         REG.TECH.LAW<span className="text-primary">.ALL</span>
                     </h2>
                     <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] text-gray-dark lg:max-w-[585px] pt-2">
