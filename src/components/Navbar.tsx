@@ -7,21 +7,47 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        // Dispara uma vez ao carregar para pegar o estado inicial
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+
+        checkMobile();
         handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
+
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", checkMobile);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", checkMobile);
+        };
     }, []);
 
+    // Altura do container
+    const navHeight = isMobile
+        ? (scrolled ? "56px" : "70px")
+        : (scrolled ? "90px" : "130px");
+
+    // Largura do logo
+    const logoWidth = isMobile
+        ? (scrolled ? "110px" : "140px")
+        : (scrolled ? "240px" : "343px");
+
     return (
-        <nav className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 bg-white border-b border-gray-100 ${scrolled ? 'shadow-md' : ''}`}>
-            <div className={`max-w-[1512px] mx-auto px-6 lg:px-[40px] flex items-center justify-between transition-all duration-300 ${scrolled ? 'h-[70px] lg:h-[90px]' : 'h-[90px] lg:h-[130px]'}`}>
-                
+        <nav
+            className={`fixed top-0 left-0 right-0 w-full z-50 bg-white border-b border-gray-100 ${scrolled ? "shadow-md" : ""}`}
+            style={{ transition: "box-shadow 0.3s" }}
+        >
+            <div
+                className="max-w-[1512px] mx-auto px-4 flex items-center justify-between overflow-hidden"
+                style={{
+                    height: navHeight,
+                    transition: "height 0.3s ease",
+                    paddingLeft: "clamp(16px, 3vw, 40px)",
+                    paddingRight: "clamp(16px, 3vw, 40px)",
+                }}
+            >
                 {/* Logo */}
                 <div className="flex-shrink-0 z-50">
                     <Link href="/" className="block">
@@ -31,55 +57,65 @@ export default function Navbar() {
                             width={343}
                             height={64}
                             priority
-                            className={`transition-all duration-300 h-auto ${scrolled ? 'w-[150px] md:w-[200px] lg:w-[260px]' : 'w-[180px] md:w-[240px] lg:w-[343px]'}`}
+                            style={{
+                                width: logoWidth,
+                                height: "auto",
+                                transition: "width 0.3s ease",
+                            }}
                         />
                     </Link>
                 </div>
 
-                {/* Desktop Menu - Stacked Layout */}
-                <div className="hidden lg:flex items-center justify-end gap-x-8 xl:gap-x-12 font-handel text-[16px] xl:text-[20.3px] font-bold tracking-normal text-black w-full ml-8">
+                {/* Desktop Menu */}
+                <div className="hidden lg:flex items-center justify-end gap-x-6 xl:gap-x-10 font-handel font-bold tracking-normal text-black shrink-0 ml-6"
+                    style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
+                >
                     <Link href="#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
                         quem somos
                     </Link>
                     <Link href="#areas" className="hover:text-primary transition-colors whitespace-nowrap">
                         áreas de atuação
                     </Link>
-                    
-                    {/* Advogados / Contato Stacked */}
-                    <div className="flex flex-col items-center gap-1">
-                        <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
-                            advogados
-                        </Link>
-                        <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
-                            contato
-                        </Link>
-                    </div>
-
-                    {/* Blog / PT/EN Stacked */}
-                    <div className="flex flex-col items-center gap-1">
-                        <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
-                            blog
-                        </Link>
-                        <button className="text-primary font-bold hover:opacity-80 transition-opacity uppercase">
-                            PT/EN
-                        </button>
-                    </div>
+                    <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
+                        advogados
+                    </Link>
+                    <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
+                        contato
+                    </Link>
+                    <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
+                        blog
+                    </Link>
+                    <button className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap">
+                        PT/EN
+                    </button>
                 </div>
 
-                {/* Mobile Icons + Hamburger */}
-                <div className="flex lg:hidden items-center gap-4 z-50">
-                    <button className="text-primary font-bold text-sm">
+                {/* Mobile: PT/EN + Hamburger */}
+                <div className="flex lg:hidden items-center gap-3 z-50 shrink-0">
+                    <button className="text-primary font-bold text-xs whitespace-nowrap">
                         PT/EN
                     </button>
                     <button
-                        className="text-black p-2 focus:outline-none"
+                        className="text-black p-1 focus:outline-none"
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle Menu"
                     >
-                        <div className="w-8 h-8 flex flex-col items-center justify-center relative space-y-[6px]">
-                            <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isOpen ? "rotate-45 translate-y-[8px]" : ""}`} />
-                            <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isOpen ? "opacity-0" : ""}`} />
-                            <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-[8px]" : ""}`} />
+                        <div className="w-6 h-6 flex flex-col items-center justify-center relative" style={{ gap: "5px" }}>
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    transform: isOpen ? "rotate(45deg) translateY(7px)" : "none",
+                                }} />
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    opacity: isOpen ? 0 : 1,
+                                }} />
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    transform: isOpen ? "rotate(-45deg) translateY(-7px)" : "none",
+                                }} />
                         </div>
                     </button>
                 </div>
@@ -87,9 +123,13 @@ export default function Navbar() {
 
             {/* Mobile Menu Overlay */}
             <div
-                className={`fixed inset-0 bg-white z-40 flex flex-col items-center pt-32 gap-8 font-handel text-2xl font-bold transition-transform duration-300 ease-in-out lg:hidden ${
-                    isOpen ? "translate-y-0" : "translate-y-[-150%] opacity-0 pointer-events-none"
-                }`}
+                className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 font-handel text-2xl font-bold lg:hidden"
+                style={{
+                    opacity: isOpen ? 1 : 0,
+                    pointerEvents: isOpen ? "auto" : "none",
+                    transform: isOpen ? "translateY(0)" : "translateY(-8px)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                }}
             >
                 <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     quem somos

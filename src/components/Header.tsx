@@ -1,58 +1,153 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const imgGroup1 = "/assets/7fa17b67e0e71de8c6bb1cbc7efbaf4271091096.svg";
 
 export default function Header() {
+    const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+
+        checkMobile();
+        handleScroll();
+
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", checkMobile);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", checkMobile);
+        };
+    }, []);
+
+    // Altura do container
+    const navHeight = isMobile
+        ? (scrolled ? "56px" : "70px")
+        : (scrolled ? "90px" : "130px");
+
+    // Largura do logo
+    const logoWidth = isMobile
+        ? (scrolled ? "110px" : "140px")
+        : (scrolled ? "240px" : "343px");
 
     return (
-        <header className="relative w-full bg-white z-50">
-            <div className="w-full max-w-[1512px] mx-auto px-6 lg:px-[40px] pt-6 pb-6 lg:pt-[44px] lg:pb-[50px] flex items-center justify-between">
-                <Link href="/" className="z-50 w-[200px] lg:w-[343px] lg:h-[64px] relative block">
-                    <img src={imgGroup1} alt="Logo Garcia Alves" className="w-full h-full object-contain" />
-                </Link>
+        <header
+            className={`fixed top-0 left-0 right-0 w-full z-50 bg-white border-b border-gray-100 ${scrolled ? "shadow-md" : ""}`}
+            style={{ transition: "box-shadow 0.3s" }}
+        >
+            <div
+                className="max-w-[1512px] mx-auto px-4 flex items-center justify-between overflow-hidden"
+                style={{
+                    height: navHeight,
+                    transition: "height 0.3s ease",
+                    paddingLeft: "clamp(16px, 3vw, 40px)",
+                    paddingRight: "clamp(16px, 3vw, 40px)",
+                }}
+            >
+                {/* Logo */}
+                <div className="flex-shrink-0 z-50">
+                    <Link href="/" className="block">
+                        <Image
+                            src={imgGroup1}
+                            alt="Logo Garcia Alves"
+                            width={343}
+                            height={64}
+                            priority
+                            style={{
+                                width: logoWidth,
+                                height: "auto",
+                                transition: "width 0.3s ease",
+                            }}
+                        />
+                    </Link>
+                </div>
 
                 {/* Desktop Menu */}
-                <nav className="hidden lg:flex items-center justify-end flex-wrap flex-1 gap-x-8 lg:gap-x-[40px] xl:gap-x-[80px] font-handel text-[18px] lg:text-[20.3px] lowercase tracking-normal text-black lg:mt-[22px]">
-                    <Link href="#quem-somos" className="hover:text-primary transition-colors">quem somos</Link>
-                    <Link href="#areas" className="hover:text-primary transition-colors">áreas de atuação</Link>
-                    <Link href="#advogados" className="hover:text-primary transition-colors">advogados</Link>
-                    <Link href="/blog" className="hover:text-primary transition-colors">blog</Link>
-                    <Link href="#contato" className="hover:text-primary transition-colors">contato</Link>
-                    <span className="text-primary cursor-pointer transition-colors uppercase">PT/EN</span>
+                <nav className="hidden lg:flex items-center justify-end gap-x-6 xl:gap-x-10 font-handel font-bold tracking-normal text-black shrink-0 ml-6"
+                    style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
+                >
+                    <Link href="#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
+                        quem somos
+                    </Link>
+                    <Link href="#areas" className="hover:text-primary transition-colors whitespace-nowrap">
+                        áreas de atuação
+                    </Link>
+                    <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
+                        advogados
+                    </Link>
+                    <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
+                        contato
+                    </Link>
+                    <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
+                        blog
+                    </Link>
+                    <button className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap">
+                        PT/EN
+                    </button>
                 </nav>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="lg:hidden text-black z-50 p-2"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Toggle Menu"
-                >
-                    <div className="w-8 h-8 flex items-center justify-center relative">
-                        <span className={`absolute h-0.5 w-6 transition-all duration-300 ${isOpen ? "bg-black rotate-45" : "bg-black -translate-y-2"
-                            }`} />
-                        <span className={`absolute h-0.5 w-6 transition-all duration-300 ${isOpen ? "bg-transparent" : "bg-black"
-                            }`} />
-                        <span className={`absolute h-0.5 w-6 transition-all duration-300 ${isOpen ? "bg-black -rotate-45" : "bg-black translate-y-2"
-                            }`} />
-                    </div>
-                </button>
+                {/* Mobile: PT/EN + Hamburger */}
+                <div className="flex lg:hidden items-center gap-3 z-50 shrink-0">
+                    <button className="text-primary font-bold text-xs whitespace-nowrap">
+                        PT/EN
+                    </button>
+                    <button
+                        className="text-black p-1 focus:outline-none"
+                        onClick={() => setIsOpen(!isOpen)}
+                        aria-label="Toggle Menu"
+                    >
+                        <div className="w-6 h-6 flex flex-col items-center justify-center relative" style={{ gap: "5px" }}>
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    transform: isOpen ? "rotate(45deg) translateY(7px)" : "none",
+                                }} />
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    opacity: isOpen ? 0 : 1,
+                                }} />
+                            <span className={`block bg-black transition-all duration-300`}
+                                style={{
+                                    height: "2px", width: "22px", display: "block",
+                                    transform: isOpen ? "rotate(-45deg) translateY(-7px)" : "none",
+                                }} />
+                        </div>
+                    </button>
+                </div>
             </div>
 
-            {/* Mobile Menu Sub-Layer */}
-            <div className={`fixed inset-0 z-40 bg-white transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
-                }`}>
-                <nav className="flex flex-col items-center justify-center h-full gap-8 font-handel text-2xl text-black lowercase tracking-normal">
-                    <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">quem somos</Link>
-                    <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">áreas de atuação</Link>
-                    <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">advogados</Link>
-                    <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">blog</Link>
-                    <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">contato</Link>
-                    <span className="text-primary mt-4 uppercase">PT/EN</span>
-                </nav>
+            {/* Mobile Menu Overlay */}
+            <div
+                className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 font-handel text-2xl font-bold lg:hidden"
+                style={{
+                    opacity: isOpen ? 1 : 0,
+                    pointerEvents: isOpen ? "auto" : "none",
+                    transform: isOpen ? "translateY(0)" : "translateY(-8px)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                }}
+            >
+                <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    quem somos
+                </Link>
+                <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    áreas de atuação
+                </Link>
+                <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    advogados
+                </Link>
+                <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    blog
+                </Link>
+                <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    contato
+                </Link>
             </div>
         </header>
     );
