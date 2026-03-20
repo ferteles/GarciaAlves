@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Garcia Alves Advocacia",
   description: "Advocacia especializada em Direito Empresarial, Regulatório e Tecnologia.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 import { LanguageProvider } from "@/context/LanguageContext";
