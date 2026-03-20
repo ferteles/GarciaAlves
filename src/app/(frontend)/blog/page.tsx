@@ -5,6 +5,8 @@ import BlogFooter from "@/components/BlogFooter";
 import { getPayload } from "payload"
 import configPromise from '@payload-config'
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogListing() {
     const payload = await getPayload({ config: configPromise })
     

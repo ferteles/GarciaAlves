@@ -6,6 +6,8 @@ import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
     
