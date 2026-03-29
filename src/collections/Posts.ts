@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  labels: {
+    singular: { pt: 'Artigo', en: 'Post' },
+    plural: { pt: 'Artigos do Blog', en: 'Blog Posts' },
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'date'],
@@ -12,42 +16,47 @@ export const Posts: CollectionConfig = {
   fields: [
     {
       name: 'title',
-      label: 'Título',
+      label: { pt: 'Título do Artigo', en: 'Post Title' },
       type: 'text',
       required: true,
+      localized: true, // IMPORTANT! Enables DB translation
     },
     {
       name: 'content',
-      label: 'Conteúdo do Artigo',
+      label: { pt: 'Conteúdo Principal', en: 'Main Content' },
       type: 'richText',
       required: true,
+      localized: true, // IMPORTANT! Enables DB translation
     },
     {
       name: 'excerpt',
-      label: 'Resumo / Trecho (Excerpt)',
+      label: { pt: 'Resumo / Trecho (Excerpt)', en: 'Summary Excerpt' },
       type: 'textarea',
       required: true,
+      localized: true, // IMPORTANT! Enables DB translation
     },
     {
       name: 'slug',
-      label: 'Slug (URL)',
+      label: { pt: 'Ligação (URL Slug)', en: 'URL Slug' },
       type: 'text',
       required: true,
       unique: true,
       admin: {
         position: 'sidebar',
       },
+      localized: true, // Permite URLs como /blog/my-post ou /blog/meu-artigo
     },
     {
       name: 'image',
-      label: 'Imagem de Capa',
+      label: { pt: 'Imagem de Capa', en: 'Cover Image' },
       type: 'upload',
       relationTo: 'media',
       required: true,
+      localized: true, // Permite imagem diferente caso tenha texto
     },
     {
       name: 'date',
-      label: 'Data de Publicação',
+      label: { pt: 'Data Curta de Publicação', en: 'Publish Date' },
       type: 'date',
       required: true,
       admin: {
@@ -56,19 +65,19 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'category',
-      label: 'Categorias',
+      label: { pt: 'Categorias (Tags)', en: 'Categories (Tags)' },
       type: 'select',
       hasMany: true,
       options: [
-        { label: 'Inovação', value: 'Inovação' },
-        { label: 'Regulação', value: 'Regulação' },
-        { label: 'Políticas Públicas', value: 'Políticas Públicas' },
-        { label: 'Tecnologia', value: 'Tecnologia' },
-        { label: 'Inteligência Artificial', value: 'Inteligência Artificial' },
-        { label: 'Startups', value: 'Startups' },
-        { label: 'Societário', value: 'Societário' },
-        { label: 'Dados', value: 'Dados' },
-        { label: 'Privacidade', value: 'Privacidade' },
+        { label: { pt: 'Inovação', en: 'Innovation' }, value: 'Inovação' },
+        { label: { pt: 'Regulação', en: 'Regulation' }, value: 'Regulação' },
+        { label: { pt: 'Políticas Públicas', en: 'Public Policy' }, value: 'Políticas Públicas' },
+        { label: { pt: 'Tecnologia', en: 'Technology' }, value: 'Tecnologia' },
+        { label: { pt: 'Inteligência Artificial', en: 'Artificial Intelligence' }, value: 'Inteligência Artificial' },
+        { label: { pt: 'Startups', en: 'Startups' }, value: 'Startups' },
+        { label: { pt: 'Societário', en: 'Corporate' }, value: 'Societário' },
+        { label: { pt: 'Dados', en: 'Data' }, value: 'Dados' },
+        { label: { pt: 'Privacidade', en: 'Privacy' }, value: 'Privacidade' },
       ],
       admin: {
         position: 'sidebar',

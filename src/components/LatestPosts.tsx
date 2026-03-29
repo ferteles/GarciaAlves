@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { posts as staticPosts } from "@/data/posts";
 
 export default function LatestPosts() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [posts, setPosts] = useState<any[]>(staticPosts);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(false);
@@ -18,7 +18,7 @@ export default function LatestPosts() {
         async function fetchPosts() {
             setLoading(true);
             try {
-                const res = await fetch(`/api/posts?sort=-date&limit=10&page=${page}&depth=1`);
+                const res = await fetch(`/api/posts?sort=-date&limit=10&page=${page}&depth=1&locale=${language}&fallback-locale=pt`, { cache: 'no-store' });
                 const data = await res.json();
                 if (data && data.docs && data.docs.length > 0) {
                     if (page === 1) {

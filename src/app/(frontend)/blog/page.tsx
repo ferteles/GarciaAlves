@@ -5,14 +5,22 @@ import Footer from "@/components/Footer";
 import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import BlogTabs from "@/components/BlogTabs";
+import { cookies } from "next/headers";
+import { dictionaries, Language } from "@/i18n/dictionaries";
 export const dynamic = 'force-dynamic';
 
 export default async function BlogListing() {
+    const cookieStore = await cookies()
+    const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as Language) || 'pt'
+    const t = dictionaries[currentLanguage]
+
     const payload = await getPayload({ config: configPromise })
     
     const postsData = await payload.find({
         collection: 'posts' as any,
         sort: '-date',
+        locale: currentLanguage as any,
+        fallbackLocale: 'pt' as any,
     })
     const posts: any[] = postsData.docs
 
@@ -50,11 +58,10 @@ export default async function BlogListing() {
                         {/* Left Column */}
                         <div className="lg:col-span-7 flex flex-col pt-4">
                             <h1 className="font-handel text-[40px] md:text-[50px] leading-[1.05] mb-8 text-[#232323]">
-                                Insights que conectam<br className="hidden lg:block" /> direito, tecnologia e inovação
+                                <span style={{ whiteSpace: "pre-line" }}>{t.blog.hero_title}</span>
                             </h1>
                             <p className="font-motiva text-[18px] md:text-[20px] leading-[1.5] text-[#232323] max-w-[625px]">
-                                Nesta seção reunimos artigos jurídicos, análises e conteúdos sobre Direito Regulatório, Advocacia Empresarial, Direito Digital e Tecnologia. Nosso objetivo é compartilhar conhecimento aplicado para transformar desafios jurídicos em oportunidades de crescimento.<br /><br />
-                                Aqui você encontra conteúdo exclusivo produzido por advogados especializados em consultoria jurídica, Direito Empresarial e soluções regulatórias.
+                                {t.blog.hero_description}
                             </p>
                         </div>
                         

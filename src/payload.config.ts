@@ -15,6 +15,11 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  localization: {
+    locales: ['pt', 'en'],
+    defaultLocale: 'pt',
+    fallback: false, // Permite que o frontend mostre o dicionário inglês hardcoded se a caixa estiver vazia no Admin
+  },
   admin: {
     user: Users.slug,
     importMap: {
@@ -32,6 +37,7 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URL || 'file:./garcia-alves.db',
     },
+    push: true,
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   sharp,

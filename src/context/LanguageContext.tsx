@@ -16,10 +16,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Carregar idioma do localStorage no mount
     const savedLang = localStorage.getItem("app_lang") as Language;
     if (savedLang && (savedLang === "pt" || savedLang === "en")) {
       setLanguageState(savedLang);
+      document.cookie = `NEXT_LOCALE=${savedLang}; path=/; max-age=31536000`;
     }
     setMounted(true);
   }, []);
@@ -27,6 +27,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("app_lang", lang);
+    document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000`;
+    // Refresh page specifically if there's server components to re-fetch
+    window.location.reload();
   };
 
   const t = dictionaries[language];

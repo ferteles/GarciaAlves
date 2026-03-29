@@ -15,13 +15,13 @@ const imgRectangle10 = "/assets/sergio-garcia-alves.png";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     async function fetchHome() {
       try {
-        const res = await fetch('/api/globals/home-page?depth=1');
+        const res = await fetch(`/api/globals/home-page?depth=1&locale=${language}`, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -31,7 +31,7 @@ export default function Home() {
       }
     }
     fetchHome();
-  }, []);
+  }, [language]);
 
   const heroBgUrl = data?.heroBgImage?.url || imgRectangle1;
   const aboutImgUrl = data?.aboutImage?.url || imgRectangle8;

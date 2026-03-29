@@ -5,12 +5,18 @@ import Footer from "@/components/Footer";
 import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { cookies } from "next/headers";
+import { dictionaries, Language } from "@/i18n/dictionaries";
 
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
     
+    const cookieStore = await cookies()
+    const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as Language) || 'pt'
+    const t = dictionaries[currentLanguage]
+
     const payload = await getPayload({ config: configPromise })
     
     const postsData = await payload.find({
@@ -20,7 +26,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 equals: resolvedParams.slug
             }
         },
-        limit: 1
+        limit: 1,
+        locale: currentLanguage as any,
+        fallbackLocale: 'pt' as any,
     })
 
     const post: any = postsData.docs[0];
@@ -29,9 +37,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         return (
             <main className="min-h-screen relative w-full overflow-x-hidden flex items-center justify-center bg-[#F5F2E9] text-foreground">
                 <div className="text-center">
-                    <h1 className="font-handel text-4xl mb-4">Post não encontrado</h1>
+                    <h1 className="font-handel text-4xl mb-4">{t.blog.not_found}</h1>
                     <Link href="/blog" className="font-motiva text-primary hover:underline">
-                        Voltar para o blog
+                        {t.blog.back_to_blog}
                     </Link>
                 </div>
             </main>
@@ -46,7 +54,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             }
         },
         sort: '-date',
-        limit: 3
+        limit: 3,
+        locale: currentLanguage as any,
+        fallbackLocale: 'pt' as any,
     })
     const relatedPosts: any[] = relatedData.docs;
 
@@ -85,7 +95,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         href="/blog"
                         className="inline-flex items-center gap-2 font-motiva text-xs font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
                     >
-                        <span>&larr;</span> Voltar
+                        <span>&larr;</span> {t.blog.back}
                     </Link>
                 </div>
 
@@ -97,7 +107,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         href="/blog"
                         className="inline-flex items-center gap-2 font-motiva text-sm uppercase tracking-widest text-foreground/50 hover:text-primary transition-colors mb-12"
                     >
-                        <span>&larr;</span> Voltar para publicações
+                        <span>&larr;</span> {t.blog.back_to_blog}
                     </Link>
 
                     {/* Header Content */}
@@ -136,7 +146,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     {relatedPosts.length > 0 && (
                         <div className="mt-24 mb-10">
                             <h3 className="font-motiva text-sm font-bold tracking-widest uppercase mb-4 text-black">
-                                artigos similares
+                                {t.blog.similar_articles}
                             </h3>
                             <div className="w-full h-px bg-black mb-8" />
                             <div className="flex flex-col">

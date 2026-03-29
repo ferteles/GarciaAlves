@@ -65,6 +65,14 @@ export const dictionaries = {
       read_more: "Leia mais",
       see_all: "Confira todas as publicações"
     },
+    blog: {
+      hero_title: "Insights que conectam\ndireito, tecnologia e inovação",
+      hero_description: "Nesta seção reunimos artigos jurídicos, análises e conteúdos sobre Direito Regulatório, Advocacia Empresarial, Direito Digital e Tecnologia. Nosso objetivo é compartilhar conhecimento aplicado para transformar desafios jurídicos em oportunidades de crescimento.\n\nAqui você encontra conteúdo exclusivo produzido por advogados especializados em consultoria jurídica, Direito Empresarial e soluções regulatórias.",
+      back: "Voltar",
+      back_to_blog: "Voltar para publicações",
+      similar_articles: "artigos similares",
+      not_found: "Post não encontrado"
+    },
     footer_contact: {
       title: "Sua mensagem é importante para nós",
       email_placeholder: "EMAIL",
@@ -145,6 +153,14 @@ export const dictionaries = {
       title: "Check out our publications",
       read_more: "Read more",
       see_all: "View all publications"
+    },
+    blog: {
+      hero_title: "Insights connecting\nlaw, technology, and innovation",
+      hero_description: "In this section, we gather legal articles, analysis, and content on Regulatory Law, Corporate Advocacy, Digital Law, and Technology. Our goal is to share applied knowledge to transform legal challenges into growth opportunities.\n\nHere you'll find exclusive content produced by lawyers specialized in legal consulting, Corporate Law, and regulatory solutions.",
+      back: "Back",
+      back_to_blog: "Back to publications",
+      similar_articles: "similar articles",
+      not_found: "Post not found"
     },
     footer_contact: {
       title: "Your message is important to us",
