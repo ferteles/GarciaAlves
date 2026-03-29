@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import BlogFooter from "@/components/BlogFooter";
+import Footer from "@/components/Footer";
 import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
@@ -27,7 +27,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     if (!post) {
         return (
-            <main className="min-h-screen relative w-full overflow-x-hidden flex items-center justify-center bg-background text-foreground">
+            <main className="min-h-screen relative w-full overflow-x-hidden flex items-center justify-center bg-[#F5F2E9] text-foreground">
                 <div className="text-center">
                     <h1 className="font-handel text-4xl mb-4">Post não encontrado</h1>
                     <Link href="/blog" className="font-motiva text-primary hover:underline">
@@ -51,7 +51,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const relatedPosts: any[] = relatedData.docs;
 
     return (
-        <main className="min-h-screen relative w-full overflow-x-hidden bg-background">
+        <main className="min-h-screen relative w-full overflow-x-hidden bg-[#F5F2E9]">
             <Navbar />
 
             {/* Blue Strip */}
@@ -153,7 +153,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 </div>
             </article>
 
-            <BlogFooter />
+            <Footer />
         </main>
     );
 }
