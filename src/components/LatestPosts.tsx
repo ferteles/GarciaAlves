@@ -8,11 +8,18 @@ import { posts as staticPosts } from "@/data/posts";
 
 export default function LatestPosts() {
     const { t, language } = useLanguage();
-    const [posts, setPosts] = useState<any[]>(staticPosts);
+    const [posts, setPosts] = useState<any[]>([]);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(false);
     const [expanded, setExpanded] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Reset when language changes
+        setPage(1);
+        setPosts([]);
+        setExpanded(false);
+    }, [language]);
 
     useEffect(() => {
         async function fetchPosts() {
@@ -43,7 +50,7 @@ export default function LatestPosts() {
         }
         fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
+    }, [page, language]);
 
     const handleLoadMore = () => {
         if (!expanded) {
@@ -54,6 +61,17 @@ export default function LatestPosts() {
     };
 
     const visiblePosts = expanded ? posts : posts.slice(0, 3);
+
+    // Skeleton de loading
+    if (loading && posts.length === 0) {
+        return (
+            <div className="flex flex-col gap-4 lg:gap-6 mb-16 max-w-[1200px] mx-auto w-full animate-pulse">
+                {[1, 2, 3].map(i => (
+                    <div key={i} className="flex flex-col md:flex-row w-full bg-[#e2e2e2] h-[220px] lg:h-[280px]" />
+                ))}
+            </div>
+        );
+    }
 
     return (
         <>

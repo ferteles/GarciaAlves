@@ -1,0 +1,176 @@
+/* ============================================================
+   Garcia Alves – Custom Payload CMS Admin Theme
+   Cores principais: #1f12d4 (primary blue), #ffdc2e (accent yellow)
+   ============================================================ */
+
+/* --- Variáveis de base do projeto ----------------------------- */
+:root {
+  /* Cor de destaque / accent do Payload (botões, links, foco) */
+  --color-base-brand:        #1f12d4;
+  --color-base-brand-dark:   #1003ba;
+  --color-base-brand-light:  #3d2fe8;
+  --color-base-accent:       #ffdc2e;
+
+  /* Sobrescreve a escala "base" que o Payload usa para elevaçōes.
+     Usamos um branco quase puro até um preto levemente azulado
+     para dar personalidade sem perder legibilidade. */
+  --color-base-0:    rgb(255, 255, 255);
+  --color-base-50:   rgb(243, 243, 250);
+  --color-base-100:  rgb(232, 232, 246);
+  --color-base-150:  rgb(217, 217, 240);
+  --color-base-200:  rgb(203, 203, 234);
+  --color-base-250:  rgb(189, 189, 228);
+  --color-base-300:  rgb(174, 174, 220);
+  --color-base-350:  rgb(160, 160, 212);
+  --color-base-400:  rgb(145, 145, 204);
+  --color-base-450:  rgb(130, 130, 196);
+  --color-base-500:  rgb(115, 115, 185);
+  --color-base-550:  rgb(100, 100, 173);
+  --color-base-600:  rgb(87,  87,  160);
+  --color-base-650:  rgb(74,  74,  147);
+  --color-base-700:  rgb(60,  60,  132);
+  --color-base-750:  rgb(48,  48,  115);
+  --color-base-800:  rgb(36,  36,  98);
+  --color-base-850:  rgb(25,  25,  75);
+  --color-base-900:  rgb(16,  16,  52);
+  --color-base-950:  rgb(8,   8,   32);
+  --color-base-1000: rgb(0,   0,   0);
+}
+
+/* --- Tema light (padrão) -------------------------------------- */
+html[data-theme='light'],
+html:not([data-theme]) {
+  /* Fundo principal e texto */
+  --theme-bg:           #ffffff;
+  --theme-text:         #232323;
+  --theme-input-bg:     #f3f3fa;
+  --theme-border-color: var(--theme-elevation-150);
+
+  /* Sobrescreve o azul de destaque do Payload para nossa cor primária */
+  --color-base-brand:       #1f12d4;
+  --color-base-accent:      #ffdc2e;
+}
+
+/* --- Tema dark ------------------------------------------------- */
+html[data-theme='dark'] {
+  --theme-bg:       #0e0e1a;
+  --theme-text:     #e8e8f6;
+  --theme-input-bg: #1a1a2e;
+}
+
+/* ============================================================
+   Botões primários → azul da marca
+   ============================================================ */
+.btn.btn--style-primary,
+.btn[class*='btn--style-primary'] {
+  background-color: #1f12d4 !important;
+  border-color:     #1f12d4 !important;
+  color:            #ffffff !important;
+}
+
+.btn.btn--style-primary:hover,
+.btn[class*='btn--style-primary']:hover {
+  background-color: #1003ba !important;
+  border-color:     #1003ba !important;
+}
+
+/* ============================================================
+   Links e textos de destaque → azul da marca
+   ============================================================ */
+a,
+.step-nav__step.is-active .step-nav__label,
+.nav__link.active,
+.nav__link:hover {
+  color: #1f12d4;
+}
+
+/* ============================================================
+   Barra lateral / nav
+   ============================================================ */
+html[data-theme='light'] .nav {
+  background: #f3f3fa;
+  border-right: 1px solid #ddddf0;
+}
+
+html[data-theme='dark'] .nav {
+  background: #0e0e1a;
+  border-right: 1px solid #1f1f3a;
+}
+
+/* Logo / nome do projeto na nav */
+.nav__brand {
+  color: #1f12d4 !important;
+}
+
+/* ============================================================
+   Cabeçalho superior (top bar)
+   ============================================================ */
+html[data-theme='light'] .app-header {
+  background: #ffffff;
+  border-bottom: 1px solid #ddddf0;
+}
+
+html[data-theme='dark'] .app-header {
+  background: #0e0e1a;
+  border-bottom: 1px solid #1f1f3a;
+}
+
+/* ============================================================
+   Inputs com foco → borda azul da marca
+   ============================================================ */
+input:focus,
+textarea:focus,
+select:focus,
+.field-type input:focus,
+.field-type textarea:focus,
+.ReactSelect__control--is-focused {
+  border-color: #1f12d4 !important;
+  box-shadow: 0 0 0 2px rgba(31, 18, 212, 0.15) !important;
+  outline: none !important;
+}
+
+/* ============================================================
+   Checkbox / toggle ativos → azul da marca
+   ============================================================ */
+.checkbox-input__icon-container[aria-checked='true'],
+.checkbox-input__icon-container[data-checked='true'] {
+  background-color: #1f12d4 !important;
+  border-color:     #1f12d4 !important;
+}
+
+/* ============================================================
+   Paginação / tabs – item ativo
+   ============================================================ */
+.tabs-field__tab-button.tabs-field__tab-button--active,
+.step-nav__step.is-active {
+  border-bottom-color: #1f12d4 !important;
+  color: #1f12d4 !important;
+}
+
+/* ============================================================
+   Pill / badge de status
+   ============================================================ */
+.pill--style-success {
+  background-color: rgba(31, 18, 212, 0.12) !important;
+  color:            #1f12d4 !important;
+}
+
+/* ============================================================
+   Seleção de texto
+   ============================================================ */
+::selection {
+  background-color: rgba(31, 18, 212, 0.2);
+  color: #1f12d4;
+}
+
+/* ============================================================
+   Scrollbar (Webkit) – toque sutil de marca
+   ============================================================ */
+::-webkit-scrollbar-thumb {
+  background: rgba(31, 18, 212, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(31, 18, 212, 0.45);
+}
