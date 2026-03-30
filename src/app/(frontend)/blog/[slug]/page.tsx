@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -7,8 +8,69 @@ import configPromise from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { cookies } from "next/headers";
 import { dictionaries, Language } from "@/i18n/dictionaries";
+import { ArticleJsonLd } from "@/components/JsonLd";
 
 export const dynamic = 'force-dynamic';
+
+const siteUrl = 'https://garciaalves.adv.br'
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const resolvedParams = await params
+  const payload = await getPayload({ config: configPromise })
+
+  const postsData = await payload.find({
+    collection: 'posts' as any,
+    where: { slug: { equals: resolvedParams.slug } },
+    limit: 1,
+    locale: 'pt' as any,
+    fallbackLocale: 'pt' as any,
+  })
+
+  const post: any = postsData.docs[0]
+  if (!post) return {}
+
+  const title = post.title
+  const description = post.excerpt
+    ? post.excerpt.slice(0, 160)
+    : `Artigo jurídico — ${post.title} | Garcia Alves Advocacia`
+  const canonicalUrl = `${siteUrl}/blog/${post.slug}`
+  const imageUrl = post.image?.url || `${siteUrl}/assets/og-default.png`
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: 'Garcia Alves Advocacia',
+      locale: 'pt_BR',
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['Garcia Alves Advocacia'],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+  }
+}
+
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
@@ -63,6 +125,14 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     return (
         <main className="min-h-screen relative w-full overflow-x-hidden bg-[#F5F2E9]">
             <Navbar />
+
+            <ArticleJsonLd
+                title={post.title}
+                description={post.excerpt ? post.excerpt.slice(0, 160) : post.title}
+                url={`${siteUrl}/blog/${post.slug}`}
+                publishedAt={post.date || post.createdAt}
+                imageUrl={post.image?.url}
+            />
 
             {/* Blue Strip */}
             <div className="w-full bg-primary py-3 md:py-4 mt-[120px] lg:mt-[150px] px-6 lg:px-20 flex items-center shadow-md relative z-20">

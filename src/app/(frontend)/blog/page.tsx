@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -8,6 +9,43 @@ import BlogTabs from "@/components/BlogTabs";
 import { cookies } from "next/headers";
 import { dictionaries, Language } from "@/i18n/dictionaries";
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = 'https://garciaalves.adv.br'
+  const title = 'Blog Jurídico | Artigos sobre Direito Regulatório, Digital e Empresarial'
+  const description =
+    'Artigos jurídicos e análises sobre Direito Regulatório, Tecnologia, LGPD, Inteligência Artificial e Advocacia Empresarial. Insights produzidos por advogados especializados em Brasília-DF.'
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/blog`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/blog`,
+      siteName: 'Garcia Alves Advocacia',
+      locale: 'pt_BR',
+      type: 'website',
+      images: [
+        {
+          url: '/assets/og-default.png',
+          width: 1200,
+          height: 630,
+          alt: 'Blog — Garcia Alves Advocacia',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/assets/og-default.png'],
+    },
+  }
+}
 
 export default async function BlogListing() {
     const cookieStore = await cookies()
