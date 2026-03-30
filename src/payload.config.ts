@@ -1,6 +1,8 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { pt } from '@payloadcms/translations/languages/pt'
+import { en } from '@payloadcms/translations/languages/en'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -19,6 +21,10 @@ export default buildConfig({
     locales: ['pt', 'en'],
     defaultLocale: 'pt',
     fallback: false, // Permite que o frontend mostre o dicionário inglês hardcoded se a caixa estiver vazia no Admin
+  },
+  i18n: {
+    fallbackLanguage: 'pt',
+    supportedLanguages: { pt, en },
   },
   admin: {
     user: Users.slug,
