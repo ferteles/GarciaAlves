@@ -14,6 +14,13 @@ export default function LatestPosts() {
     const [expanded, setExpanded] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    // Helper to pick the correct language field
+    const getField = (post: any, field: string) => {
+        const val = post[`${field}_${language}`];
+        if (val) return val;
+        return post[`${field}_pt`] || post[field] || '';
+    };
+
     useEffect(() => {
         // Reset when language changes
         setPage(1);
@@ -25,7 +32,7 @@ export default function LatestPosts() {
         async function fetchPosts() {
             setLoading(true);
             try {
-                const res = await fetch(`/api/posts?sort=-date&limit=10&page=${page}&depth=1&locale=${language}&fallback-locale=pt`, { cache: 'no-store' });
+                const res = await fetch(`/api/posts?sort=-date&limit=10&page=${page}&depth=1`, { cache: 'no-store' });
                 const data = await res.json();
                 if (data && data.docs && data.docs.length > 0) {
                     if (page === 1) {
@@ -80,15 +87,15 @@ export default function LatestPosts() {
                     <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col md:flex-row w-full bg-[#e2e2e2] cursor-pointer hover:bg-[#d5d5d5] transition-colors">
                         <div className="w-full md:w-[300px] lg:w-[450px] aspect-[16/9] md:aspect-auto md:h-[220px] lg:h-[280px] bg-[#d9d9d9] overflow-hidden flex-shrink-0 relative">
                             {post.image && typeof post.image === 'object' && post.image.url ? (
-                                <Image src={post.image.url} alt={post.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                                <Image src={post.image.url} alt={getField(post, 'title')} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                             ) : post.image && typeof post.image === 'string' ? (
-                                <Image src={post.image} alt={post.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                                <Image src={post.image} alt={getField(post, 'title')} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                             ) : null}
                         </div>
                         <div className="flex flex-col justify-center p-8 lg:p-12 flex-1 relative">
-                            <h3 className="font-handel text-[24px] lg:text-[33.17px] leading-[1.1] mb-4 text-gray-dark">{post.title}</h3>
+                            <h3 className="font-handel text-[24px] lg:text-[33.17px] leading-[1.1] mb-4 text-gray-dark">{getField(post, 'title')}</h3>
                             <p className="font-motiva text-[16px] lg:text-[18px] leading-[1.5] text-gray-600 mb-6 max-w-[600px] line-clamp-3">
-                                {post.excerpt}
+                                {getField(post, 'excerpt')}
                             </p>
                             <span className="font-motiva font-bold uppercase text-[14px] text-gray-dark group-hover:text-primary transition-colors block border-t-[2px] border-black pt-4 w-fit">
                                 {t.publications.read_more}

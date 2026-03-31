@@ -47,6 +47,14 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+// Helper to pick correct language field from a post
+function getPostField(post: any, field: string, lang: string) {
+  const val = post[`${field}_${lang}`];
+  if (val) return val;
+  // Fallback to Portuguese
+  return post[`${field}_pt`] || post[field] || '';
+}
+
 export default async function BlogListing() {
     const cookieStore = await cookies()
     const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as Language) || 'pt'
@@ -57,10 +65,14 @@ export default async function BlogListing() {
     const postsData = await payload.find({
         collection: 'posts' as any,
         sort: '-date',
-        locale: currentLanguage as any,
-        fallbackLocale: 'pt' as any,
     })
-    const posts: any[] = postsData.docs
+    
+    // Map posts to include language-aware title/excerpt
+    const posts: any[] = postsData.docs.map((post: any) => ({
+      ...post,
+      title: getPostField(post, 'title', currentLanguage),
+      excerpt: getPostField(post, 'excerpt', currentLanguage),
+    }));
 
     const dynamicCategories = new Set<string>();
     posts.forEach(post => {

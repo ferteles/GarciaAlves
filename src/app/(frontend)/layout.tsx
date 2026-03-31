@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { OrganizationJsonLd, LegalServiceJsonLd } from "@/components/JsonLd";
+import { getPayload } from "payload"
+import configPromise from '@payload-config'
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const siteUrl = "https://garciaalves.adv.br";
 const defaultTitle = "Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia";
@@ -73,19 +76,29 @@ export const metadata: Metadata = {
   },
 };
 
-import { LanguageProvider } from "@/context/LanguageContext";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  let menuData = null;
+  try {
+    const payload = await getPayload({ config: configPromise })
+    menuData = await (payload as any).findGlobal({
+      slug: 'main-menu',
+    })
+  } catch (err) {
+    console.error("Layout: Error fetching main-menu global:", err);
+  }
+
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body className="antialiased font-sans text-foreground bg-background" suppressHydrationWarning>
         <OrganizationJsonLd />
         <LegalServiceJsonLd />
-        <LanguageProvider>
+        <LanguageProvider initialMenu={menuData as any}>
           {children}
         </LanguageProvider>
       </body>

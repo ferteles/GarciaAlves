@@ -9,7 +9,7 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const { language, setLanguage, t } = useLanguage();
+    const { language, setLanguage, menuItems } = useLanguage();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -76,21 +76,12 @@ export default function Navbar() {
                 <div className="hidden lg:flex items-center justify-end gap-x-6 xl:gap-x-10 font-handel font-bold tracking-normal text-black shrink-0 ml-6"
                     style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
                 >
-                    <Link href="#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
-                        {t.nav.about}
-                    </Link>
-                    <Link href="#areas" className="hover:text-primary transition-colors whitespace-nowrap">
-                        {t.nav.expertise}
-                    </Link>
-                    <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
-                        {t.nav.lawyers}
-                    </Link>
-                    <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
-                        {t.nav.contact}
-                    </Link>
-                    <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
-                        {t.nav.blog}
-                    </Link>
+                    {menuItems.map((item, index) => (
+                      <Link key={index} href={item.link} className="hover:text-primary transition-colors whitespace-nowrap">
+                        {item.label}
+                      </Link>
+                    ))}
+                    
                     <button 
                         onClick={toggleLanguage}
                         className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap bg-gray-100 px-3 py-1 rounded cursor-pointer"
@@ -143,21 +134,11 @@ export default function Navbar() {
                     transition: "opacity 0.3s ease, transform 0.3s ease",
                 }}
             >
-                <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    {t.nav.about}
-                </Link>
-                <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    {t.nav.expertise}
-                </Link>
-                <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    {t.nav.lawyers}
-                </Link>
-                <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    {t.nav.blog}
-                </Link>
-                <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
-                    {t.nav.contact}
-                </Link>
+                {menuItems.map((item, index) => (
+                  <Link key={index} href={item.link} onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                    {item.label}
+                  </Link>
+                ))}
             </div>
         </nav>
     );

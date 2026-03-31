@@ -3,15 +3,32 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { dictionaries, Language, Dictionary } from "@/i18n/dictionaries";
 
+export interface MenuItem {
+  label: string;
+  link: string;
+}
+
+export interface MenuData {
+  items_pt: MenuItem[];
+  items_en: MenuItem[];
+}
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: Dictionary;
+  menuItems: MenuItem[];
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+export function LanguageProvider({ 
+  children, 
+  initialMenu 
+}: { 
+  children: React.ReactNode,
+  initialMenu?: MenuData 
+}) {
   const [language, setLanguageState] = useState<Language>("pt");
   const [mounted, setMounted] = useState(false);
 
@@ -28,23 +45,28 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(lang);
     localStorage.setItem("app_lang", lang);
     document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000`;
-    // Refresh page specifically if there's server components to re-fetch
+    // Refresh page if there's server components to re-fetch
     window.location.reload();
   };
 
   const t = dictionaries[language];
 
+  // Dynamic menu items from Payload
+  const menuItems = initialMenu 
+    ? (language === "pt" ? initialMenu.items_pt : initialMenu.items_en)
+    : [];
+
   // Evita hydration mismatch guardando o render inicial
   if (!mounted) {
     return (
-      <LanguageContext.Provider value={{ language: "pt", setLanguage, t: dictionaries.pt }}>
+      <LanguageContext.Provider value={{ language: "pt", setLanguage, t: dictionaries.pt, menuItems: initialMenu?.items_pt || [] }}>
         <div style={{ visibility: "hidden" }}>{children}</div>
       </LanguageContext.Provider>
     );
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, menuItems }}>
       {children}
     </LanguageContext.Provider>
   );

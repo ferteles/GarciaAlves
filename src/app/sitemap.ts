@@ -27,7 +27,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const postsData = await payload.find({
       collection: 'posts' as any,
       limit: 1000,
-      locale: 'pt' as any,
     })
 
     const postRoutes: MetadataRoute.Sitemap = postsData.docs.map((post: any) => ({

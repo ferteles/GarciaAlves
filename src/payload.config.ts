@@ -2,7 +2,6 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { pt } from '@payloadcms/translations/languages/pt'
-import { en } from '@payloadcms/translations/languages/en'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -12,19 +11,15 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { HomePage } from './globals/HomePage'
+import { MainMenu } from './globals/MainMenu'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  localization: {
-    locales: ['pt', 'en'],
-    defaultLocale: 'pt',
-    fallback: false, // Permite que o frontend mostre o dicionário inglês hardcoded se a caixa estiver vazia no Admin
-  },
   i18n: {
     fallbackLanguage: 'pt',
-    supportedLanguages: { pt, en },
+    supportedLanguages: { pt },
   },
   admin: {
     user: Users.slug,
@@ -33,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts],
-  globals: [HomePage],
+  globals: [HomePage, MainMenu],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'garcia-alves-secret-key',
   typescript: {

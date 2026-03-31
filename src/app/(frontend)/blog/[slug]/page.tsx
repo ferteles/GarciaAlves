@@ -14,6 +14,13 @@ export const dynamic = 'force-dynamic';
 
 const siteUrl = 'https://garciaalves.adv.br'
 
+// Helper to pick correct language field from a post
+function getPostField(post: any, field: string, lang: string) {
+  const val = post[`${field}_${lang}`];
+  if (val) return val;
+  return post[`${field}_pt`] || post[field] || '';
+}
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
@@ -24,17 +31,16 @@ export async function generateMetadata(
     collection: 'posts' as any,
     where: { slug: { equals: resolvedParams.slug } },
     limit: 1,
-    locale: 'pt' as any,
-    fallbackLocale: 'pt' as any,
   })
 
   const post: any = postsData.docs[0]
   if (!post) return {}
 
-  const title = post.title
-  const description = post.excerpt
-    ? post.excerpt.slice(0, 160)
-    : `Artigo jurídico — ${post.title} | Garcia Alves Advocacia`
+  const title = post.title_pt || post.title || ''
+  const excerpt = post.excerpt_pt || post.excerpt || ''
+  const description = excerpt
+    ? excerpt.slice(0, 160)
+    : `Artigo jurídico — ${title} | Garcia Alves Advocacia`
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`
   const imageUrl = post.image?.url || `${siteUrl}/assets/og-default.png`
 
@@ -89,13 +95,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             }
         },
         limit: 1,
-        locale: currentLanguage as any,
-        fallbackLocale: 'pt' as any,
     })
 
-    const post: any = postsData.docs[0];
+    const rawPost: any = postsData.docs[0];
 
-    if (!post) {
+    if (!rawPost) {
         return (
             <main className="min-h-screen relative w-full overflow-x-hidden flex items-center justify-center bg-[#F5F2E9] text-foreground">
                 <div className="text-center">
@@ -108,6 +112,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         );
     }
 
+    // Pick language-aware fields
+    const title = getPostField(rawPost, 'title', currentLanguage);
+    const excerpt = getPostField(rawPost, 'excerpt', currentLanguage);
+    const content = getPostField(rawPost, 'content', currentLanguage);
+    const post = { ...rawPost, title, excerpt, content };
+
     const relatedData = await payload.find({
         collection: 'posts' as any,
         where: {
@@ -117,10 +127,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         },
         sort: '-date',
         limit: 3,
-        locale: currentLanguage as any,
-        fallbackLocale: 'pt' as any,
     })
-    const relatedPosts: any[] = relatedData.docs;
+    const relatedPosts: any[] = relatedData.docs.map((p: any) => ({
+      ...p,
+      title: getPostField(p, 'title', currentLanguage),
+    }));
 
     return (
         <main className="min-h-screen relative w-full overflow-x-hidden bg-[#F5F2E9]">
@@ -205,10 +216,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                     {/* Article Body */}
                     <div className="font-motiva text-lg lg:text-xl leading-relaxed text-black/80 mb-24 payload-richtext">
-                        {post.content && typeof post.content === 'object' ? (
-                            <RichText data={post.content} />
+                        {content && typeof content === 'object' ? (
+                            <RichText data={content} />
                         ) : (
-                            <div className="whitespace-pre-wrap">{post.content}</div>
+                            <div className="whitespace-pre-wrap">{content}</div>
                         )}
                     </div>
 

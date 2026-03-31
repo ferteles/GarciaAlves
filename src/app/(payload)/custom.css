@@ -1,0 +1,139 @@
+/* ============================================================
+   Garcia Alves – Custom Payload CMS Admin Theme
+   Cores principais: #ffdc2e (primary yellow), #1f12d4 (accent blue)
+   ============================================================ */
+
+/* 
+   FORÇA BRUTA: Sobrescrevendo variáveis de tema do Payload 3.x 
+   Usamos :root:root para ganhar de qualquer definição simples de :root.
+*/
+:root:root {
+  /* Marca e Accent - AGORA INVERTIDO */
+  --theme-elevation-400: #ffdc2e; /* Amarelo como cor de ação principal */
+  --theme-elevation-450: #e6c529; /* Amarelo mais escuro para hover */
+  --theme-elevation-500: #1f12d4; /* Azul como destaque secundário */
+  
+  /* Se o Payload usar variáveis de 'primary' ou 'brand' diretamente */
+  --theme-primary: #ffdc2e;
+  --theme-accent: #1f12d4;
+  
+  /* Cores de Base Customizadas */
+  --color-base-brand: #ffdc2e;
+  --color-base-accent: #1f12d4;
+
+  /* Escala de Cinzas com tom azulado (mantida para sobriedade) */
+  --color-base-0:    #ffffff;
+  --color-base-50:   #f3f3fa;
+  --color-base-100:  #e8e8f6;
+  --color-base-150:  #ddddf0;
+  --color-base-200:  #ccccf0;
+  --color-base-800:  #242462;
+  --color-base-900:  #101034;
+  --color-base-950:  #080820;
+  --color-base-1000: #000000;
+}
+
+/* Aplicando cores globais */
+html body {
+  accent-color: #1f12d4 !important;
+}
+
+/* ============================================================
+   FOCO E INPUTS (AZUL PARA DESTAQUE)
+   ============================================================ */
+html body input:focus,
+html body textarea:focus,
+html body select:focus,
+html body [class*='field-type'] input:focus,
+html body [class*='field-type'] textarea:focus,
+html body .ReactSelect__control--is-focused {
+  border-color: #1f12d4 !important;
+  box-shadow: 0 0 0 2px rgba(31, 18, 212, 0.2) !important;
+  outline: none !important;
+}
+
+/* ============================================================
+   BOTÕES E ELEMENTOS DE AÇÃO (AMARELO)
+   ============================================================ */
+/* Botões Primários - Amarelo com texto Escuro para legibilidade */
+html body .btn.btn--style-primary,
+html body .btn[class*='style-primary'] {
+  background-color: #ffdc2e !important;
+  border-color: #ffdc2e !important;
+  color: #232323 !important; /* Texto escuro no fundo amarelo */
+}
+
+html body .btn.btn--style-primary:hover {
+  background-color: #e6c529 !important;
+  border-color: #e6c529 !important;
+}
+
+/* Botões secundarios - Azul */
+html body .btn.btn--style-secondary:hover {
+  border-color: #1f12d4 !important;
+  color: #1f12d4 !important;
+}
+
+/* ============================================================
+   NAVEGAÇÃO E BARRA LATERAL
+   ============================================================ */
+/* Barra de destaque no topo da Nav - Azul */
+html body .nav {
+  border-top: 4px solid #1f12d4 !important;
+  background: #f3f3fa !important;
+}
+
+/* Links Ativos - Amarelo ou Azul conforme contexto */
+html body .nav__link.active,
+html body .nav__link:hover,
+html body a:hover {
+  color: #1f12d4 !important;
+}
+
+/* Nome da Marca Amarelo com ponto Azul */
+html body .nav__brand {
+  color: #ffdc2e !important;
+  font-weight: bold !important;
+}
+html body .nav__brand::after {
+  content: '.' !important;
+  color: #1f12d4 !important;
+}
+
+/* ============================================================
+   TABS E BREADCRUMBS
+   ============================================================ */
+html body .tabs-field__tab-button--active,
+html body .step-nav__step.is-active,
+html body [class*='active']::after {
+  border-bottom-color: #ffdc2e !important;
+}
+
+/* ============================================================
+   SCROLLBAR E SELEÇÃO
+   ============================================================ */
+::selection {
+  background-color: rgba(255, 220, 46, 0.4) !important;
+  color: #232323 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffdc2e !important;
+  border-radius: 10px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e6c529 !important;
+}
+
+/* ============================================================
+   TEMA DARK - AJUSTES
+   ============================================================ */
+html[data-theme='dark'] body {
+  --theme-bg: #0e0e1a !important;
+  --theme-text: #e8e8f6 !important;
+}
+html[data-theme='dark'] .nav {
+  background: #0e0e1a !important;
+  border-right: 1px solid #1f1f3a !important;
+}

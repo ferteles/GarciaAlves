@@ -3,60 +3,85 @@ import { CollectionConfig } from 'payload'
 export const Posts: CollectionConfig = {
   slug: 'posts',
   labels: {
-    singular: { pt: 'Artigo', en: 'Post' },
-    plural: { pt: 'Artigos do Blog', en: 'Blog Posts' },
+    singular: 'Artigo',
+    plural: 'Artigos do Blog',
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'date'],
+    useAsTitle: 'title_pt',
+    defaultColumns: ['title_pt', 'slug', 'date'],
   },
   access: {
-    read: () => true, // Público para o frontend ler
+    read: () => true,
   },
   fields: [
     {
-      name: 'title',
-      label: { pt: 'Título do Artigo', en: 'Post Title' },
-      type: 'text',
-      required: true,
-      localized: true, // IMPORTANT! Enables DB translation
-    },
-    {
-      name: 'content',
-      label: { pt: 'Conteúdo Principal', en: 'Main Content' },
-      type: 'richText',
-      required: true,
-      localized: true, // IMPORTANT! Enables DB translation
-    },
-    {
-      name: 'excerpt',
-      label: { pt: 'Resumo / Trecho (Excerpt)', en: 'Summary Excerpt' },
-      type: 'textarea',
-      required: true,
-      localized: true, // IMPORTANT! Enables DB translation
+      type: 'tabs',
+      tabs: [
+        {
+          label: '🇧🇷 Conteúdo em Português',
+          fields: [
+            {
+              name: 'title_pt',
+              label: 'Título do Artigo',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'excerpt_pt',
+              label: 'Resumo / Trecho (Excerpt)',
+              type: 'textarea',
+              required: true,
+            },
+            {
+              name: 'content_pt',
+              label: 'Conteúdo Principal',
+              type: 'richText',
+              required: true,
+            },
+          ],
+        },
+        {
+          label: '🇺🇸 Content in English',
+          fields: [
+            {
+              name: 'title_en',
+              label: 'Post Title',
+              type: 'text',
+            },
+            {
+              name: 'excerpt_en',
+              label: 'Summary Excerpt',
+              type: 'textarea',
+            },
+            {
+              name: 'content_en',
+              label: 'Main Content',
+              type: 'richText',
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'slug',
-      label: { pt: 'Ligação (URL Slug)', en: 'URL Slug' },
+      label: 'Ligação (URL Slug)',
       type: 'text',
       required: true,
       unique: true,
       admin: {
         position: 'sidebar',
       },
-      localized: true, // Permite URLs como /blog/my-post ou /blog/meu-artigo
     },
     {
       name: 'image',
-      label: { pt: 'Imagem de Capa', en: 'Cover Image' },
+      label: 'Imagem de Capa',
       type: 'upload',
       relationTo: 'media',
       required: true,
-      localized: true, // Permite imagem diferente caso tenha texto
     },
     {
       name: 'date',
-      label: { pt: 'Data Curta de Publicação', en: 'Publish Date' },
+      label: 'Data de Publicação',
       type: 'date',
       required: true,
       admin: {
@@ -65,19 +90,19 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'category',
-      label: { pt: 'Categorias (Tags)', en: 'Categories (Tags)' },
+      label: 'Categorias (Tags)',
       type: 'select',
       hasMany: true,
       options: [
-        { label: { pt: 'Inovação', en: 'Innovation' }, value: 'Inovação' },
-        { label: { pt: 'Regulação', en: 'Regulation' }, value: 'Regulação' },
-        { label: { pt: 'Políticas Públicas', en: 'Public Policy' }, value: 'Políticas Públicas' },
-        { label: { pt: 'Tecnologia', en: 'Technology' }, value: 'Tecnologia' },
-        { label: { pt: 'Inteligência Artificial', en: 'Artificial Intelligence' }, value: 'Inteligência Artificial' },
-        { label: { pt: 'Startups', en: 'Startups' }, value: 'Startups' },
-        { label: { pt: 'Societário', en: 'Corporate' }, value: 'Societário' },
-        { label: { pt: 'Dados', en: 'Data' }, value: 'Dados' },
-        { label: { pt: 'Privacidade', en: 'Privacy' }, value: 'Privacidade' },
+        { label: 'Inovação', value: 'Inovação' },
+        { label: 'Regulação', value: 'Regulação' },
+        { label: 'Políticas Públicas', value: 'Políticas Públicas' },
+        { label: 'Tecnologia', value: 'Tecnologia' },
+        { label: 'Inteligência Artificial', value: 'Inteligência Artificial' },
+        { label: 'Startups', value: 'Startups' },
+        { label: 'Societário', value: 'Societário' },
+        { label: 'Dados', value: 'Dados' },
+        { label: 'Privacidade', value: 'Privacidade' },
       ],
       admin: {
         position: 'sidebar',

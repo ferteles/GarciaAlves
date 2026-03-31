@@ -18,10 +18,16 @@ export default function Home() {
   const { t, language } = useLanguage();
   const [data, setData] = useState<any>(null);
 
+  // Helper: pick the correct language field from CMS data
+  const lang = (ptField: any, enField: any) => {
+    if (language === 'en' && enField) return enField;
+    return ptField;
+  };
+
   useEffect(() => {
     async function fetchHome() {
       try {
-        const res = await fetch(`/api/globals/home-page?depth=1&locale=${language}`, { cache: 'no-store' });
+        const res = await fetch(`/api/globals/home-page?depth=1`, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -31,14 +37,19 @@ export default function Home() {
       }
     }
     fetchHome();
-  }, [language]);
+  }, []);
 
   const heroBgUrl = data?.heroBgImage?.url || imgRectangle1;
   const aboutImgUrl = data?.aboutImage?.url || imgRectangle8;
   const bannerImgUrl = data?.bannerImage?.url || imgRectangle7; 
 
   const getBoxes = () => {
-    if (data?.areasBoxes && data.areasBoxes.length > 0) return data.areasBoxes;
+    const suffix = language === 'en' ? '_en' : '_pt';
+    const boxes = data?.[`areasBoxes${suffix}`];
+    if (boxes && boxes.length > 0) return boxes;
+    // Fallback to opposite language
+    const fallback = data?.[language === 'en' ? 'areasBoxes_pt' : 'areasBoxes_en'];
+    if (fallback && fallback.length > 0) return fallback;
     return [
       { title: t.expertise.box1.title, description: t.expertise.box1.desc, buttonText: t.expertise.contact_btn },
       { title: t.expertise.box2.title, description: t.expertise.box2.desc, buttonText: t.expertise.contact_btn },
@@ -48,7 +59,11 @@ export default function Home() {
   };
 
   const getStats = () => {
-    if (data?.stats && data.stats.length > 0) return data.stats;
+    const suffix = language === 'en' ? '_en' : '_pt';
+    const stats = data?.[`stats${suffix}`];
+    if (stats && stats.length > 0) return stats;
+    const fallback = data?.[language === 'en' ? 'stats_pt' : 'stats_en'];
+    if (fallback && fallback.length > 0) return fallback;
     return [
       { number: t.numbers.n1, description: t.numbers.d1 },
       { number: t.numbers.n2, description: t.numbers.d2 },
@@ -58,7 +73,11 @@ export default function Home() {
   };
 
   const getLawyers = () => {
-    if (data?.lawyersList && data.lawyersList.length > 0) return data.lawyersList;
+    const suffix = language === 'en' ? '_en' : '_pt';
+    const lawyers = data?.[`lawyersList${suffix}`];
+    if (lawyers && lawyers.length > 0) return lawyers;
+    const fallback = data?.[language === 'en' ? 'lawyersList_pt' : 'lawyersList_en'];
+    if (fallback && fallback.length > 0) return fallback;
     return [
       { name: "Sérgio Garcia Alves", role: t.lawyers.role, bio: "LL.M. em Law & Technology pela UC Berkeley...", email: "sergio.alves@garciaalves.com", linkedin: "#", image: { url: imgRectangle10 } },
       { name: "Sérgio Garcia Alves", role: t.lawyers.role, bio: "LL.M. em Law & Technology pela UC Berkeley...", email: "sergio.alves@garciaalves.com", linkedin: "#", image: { url: imgRectangle10 } },
@@ -66,6 +85,24 @@ export default function Home() {
       { name: "Sérgio Garcia Alves", role: t.lawyers.role, bio: "LL.M. em Law & Technology pela UC Berkeley...", email: "sergio.alves@garciaalves.com", linkedin: "#", image: { url: imgRectangle10 } },
     ];
   };
+
+  // CMS fields with _pt/_en suffixes, with dictionary fallback
+  const heroTitle1 = lang(data?.heroTitle1_pt, data?.heroTitle1_en) || t.hero.title1;
+  const heroTitle2 = lang(data?.heroTitle2_pt, data?.heroTitle2_en) || t.hero.title2;
+  const heroSubtitle = lang(data?.heroSubtitle_pt, data?.heroSubtitle_en) || t.hero.subtitle;
+  const aboutTag = lang(data?.aboutTag_pt, data?.aboutTag_en) || t.about.tag;
+  const aboutTitle1 = lang(data?.aboutTitle1_pt, data?.aboutTitle1_en) || t.about.title1;
+  const aboutTitle2 = lang(data?.aboutTitle2_pt, data?.aboutTitle2_en) || t.about.title2;
+  const aboutTitle3 = lang(data?.aboutTitle3_pt, data?.aboutTitle3_en) || t.about.title3;
+  const aboutText1 = lang(data?.aboutText1_pt, data?.aboutText1_en) || t.about.p1;
+  const aboutText2 = lang(data?.aboutText2_pt, data?.aboutText2_en) || t.about.p2;
+  const areasTag = lang(data?.areasTag_pt, data?.areasTag_en) || t.expertise.tag;
+  const areasTitle = lang(data?.areasTitle_pt, data?.areasTitle_en) || t.expertise.title;
+  const areasSubtitle = lang(data?.areasSubtitle_pt, data?.areasSubtitle_en) || t.expertise.subtitle;
+  const numbersTitle = lang(data?.numbersTitle_pt, data?.numbersTitle_en) || t.numbers.title;
+  const numbersFooterTitle = lang(data?.numbersFooterTitle_pt, data?.numbersFooterTitle_en) || t.numbers.footer_title;
+  const numbersFooterDesc = lang(data?.numbersFooterDesc_pt, data?.numbersFooterDesc_en) || t.numbers.footer_desc;
+  const lawyersTitle = lang(data?.lawyersTitle_pt, data?.lawyersTitle_en) || t.lawyers.title;
 
   return (
     <div className="bg-white min-h-screen text-foreground w-full overflow-x-hidden">
@@ -78,11 +115,11 @@ export default function Home() {
         </div>
         <div className="relative z-20 max-w-4xl pt-8 mx-auto w-full max-w-[1512px] lg:px-0">
           <h1 className="font-handel text-[50px] md:text-7xl lg:text-[83.6px] leading-[1] text-white mb-8">
-            {data?.heroTitle1 || t.hero.title1}<br />
-            <span className="text-accent">{data?.heroTitle2 || t.hero.title2}</span>
+            {heroTitle1}<br />
+            <span className="text-accent">{heroTitle2}</span>
           </h1>
           <p className="font-motiva text-[18px] md:text-[20px] lg:text-[25px] leading-[1.2] text-white max-w-[655px]">
-            {data?.heroSubtitle || t.hero.subtitle}
+            {heroSubtitle}
           </p>
         </div>
         <div className="absolute z-10 bottom-[-116px] left-6 lg:left-[123px] w-[calc(100%-48px)] lg:w-[1186px] h-[255px] bg-[#ffdc2e] mix-blend-multiply pointer-events-none" />
@@ -94,17 +131,17 @@ export default function Home() {
       <section id="quem-somos" className="py-16 pb-24 lg:pt-32 lg:pb-32 px-6 lg:px-[123px] relative bg-overlay z-20">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-[1512px] mx-auto">
           <div className="lg:col-span-6 w-full lg:max-w-[597px]">
-            <span className="font-motiva uppercase text-primary font-medium tracking-[0.2em] text-[16.6px] mb-6 block">{data?.aboutTag || t.about.tag}</span>
+            <span className="font-motiva uppercase text-primary font-medium tracking-[0.2em] text-[16.6px] mb-6 block">{aboutTag}</span>
             <h2 className="font-handel text-[40px] lg:text-[50px] leading-[1] text-gray-dark mb-10">
-              {data?.aboutTitle1 || t.about.title1}<br />
-              <span className="text-primary">{data?.aboutTitle2 || t.about.title2}</span>{data?.aboutTitle3 || t.about.title3}
+              {aboutTitle1}<br />
+              <span className="text-primary">{aboutTitle2}</span>{aboutTitle3}
             </h2>
             <div className="font-motiva text-gray-dark text-[18px] lg:text-[20px] leading-[1.5]">
               <p className="mb-6">
-                {data?.aboutText1 || t.about.p1}
+                {aboutText1}
               </p>
               <p>
-                {data?.aboutText2 || t.about.p2}
+                {aboutText2}
               </p>
             </div>
           </div>
@@ -119,13 +156,13 @@ export default function Home() {
       {/* Áreas de Atuação */}
       <section id="areas" className="pt-32 pb-24 lg:pt-[150px] lg:pb-[200px] px-6 lg:px-[123px] bg-accent relative">
         <div className="max-w-[1512px] mx-auto w-full">
-          <span className="font-motiva uppercase text-primary font-medium tracking-[0.2em] text-[16.6px] mb-6 block absolute top-[65px]">{data?.areasTag || t.expertise.tag}</span>
+          <span className="font-motiva uppercase text-primary font-medium tracking-[0.2em] text-[16.6px] mb-6 block absolute top-[65px]">{areasTag}</span>
           <div className="mb-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-end mt-4">
             <h2 className="font-handel text-[40px] lg:text-[50px] leading-[1] text-gray-dark lg:col-span-7 w-full lg:max-w-[597px]">
-              <span style={{ whiteSpace: "pre-line" }}>{data?.areasTitle || t.expertise.title}</span>
+              <span style={{ whiteSpace: "pre-line" }}>{areasTitle}</span>
             </h2>
             <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] text-gray-dark lg:col-span-5 w-full lg:max-w-[469px]">
-              {data?.areasSubtitle || t.expertise.subtitle}
+              {areasSubtitle}
             </p>
           </div>
 
@@ -153,7 +190,7 @@ export default function Home() {
       <section className="pt-24 pb-32 lg:pt-[100px] lg:pb-[150px] px-6 lg:px-[123px] bg-overlay">
         <div className="max-w-[1512px] mx-auto w-full">
           <h2 className="font-handel text-[40px] lg:text-[50px] leading-[1] text-gray-dark mb-16 lg:mb-[100px]">
-            <span style={{ whiteSpace: "pre-line" }}>{data?.numbersTitle || t.numbers.title}</span>
+            <span style={{ whiteSpace: "pre-line" }}>{numbersTitle}</span>
           </h2>
 
           <div className="grid md:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-24 mb-24 lg:mb-32">
@@ -166,8 +203,8 @@ export default function Home() {
           </div>
 
           <div className="border-t-[2px] border-black pt-10 w-full lg:max-w-[827px]">
-            <h3 className="font-handel text-[28px] lg:text-[35px] mt-2 mb-4">{data?.numbersFooterTitle || t.numbers.footer_title}</h3>
-            <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] lg:max-w-[968px]">{data?.numbersFooterDesc || t.numbers.footer_desc}</p>
+            <h3 className="font-handel text-[28px] lg:text-[35px] mt-2 mb-4">{numbersFooterTitle}</h3>
+            <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] lg:max-w-[968px]">{numbersFooterDesc}</p>
           </div>
         </div>
       </section>
@@ -175,7 +212,7 @@ export default function Home() {
       {/* Advogados */}
       <section id="advogados" className="py-20 lg:py-[112px] px-6 lg:px-[123px] bg-primary text-white">
         <div className="max-w-[1512px] mx-auto w-full">
-          <h2 className="font-handel text-[40px] lg:text-[50px] mb-16 lg:ml-2">{data?.lawyersTitle || t.lawyers.title}</h2>
+          <h2 className="font-handel text-[40px] lg:text-[50px] mb-16 lg:ml-2">{lawyersTitle}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-[47px] gap-y-12">
             {getLawyers().map((lawyer: any, i: number) => (
               <div key={i} className="group cursor-pointer">
