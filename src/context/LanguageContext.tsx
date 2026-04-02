@@ -111,10 +111,10 @@ export function LanguageProvider({
 
   // Localized WhatsApp data
   const whatsapp: LocalizedWhatsApp | null = initialWhatsApp ? {
-    active: initialWhatsApp.active,
-    phoneNumber: initialWhatsApp.phoneNumber,
-    message: language === 'pt' ? initialWhatsApp.message_pt : initialWhatsApp.message_en,
-    label: language === 'pt' ? initialWhatsApp.label_pt : initialWhatsApp.label_en,
+    active: !!initialWhatsApp.active,
+    phoneNumber: initialWhatsApp.phoneNumber || (initialWhatsApp as any).phone_number || "",
+    message: language === 'pt' ? (initialWhatsApp.message_pt || "") : (initialWhatsApp.message_en || ""),
+    label: language === 'pt' ? (initialWhatsApp.label_pt || "") : (initialWhatsApp.label_en || ""),
   } : null;
 
   // Evita hydration mismatch guardando o render inicial
@@ -129,10 +129,10 @@ export function LanguageProvider({
     } : null;
 
     const defaultWhatsApp: LocalizedWhatsApp | null = initialWhatsApp ? {
-       active: initialWhatsApp.active,
-       phoneNumber: initialWhatsApp.phoneNumber,
-       message: initialWhatsApp.message_pt,
-       label: initialWhatsApp.label_pt,
+       active: !!initialWhatsApp.active,
+       phoneNumber: initialWhatsApp.phoneNumber || (initialWhatsApp as any).phone_number || "",
+       message: initialWhatsApp.message_pt || "",
+       label: initialWhatsApp.label_pt || "",
     } : null;
 
     return (
