@@ -8,7 +8,35 @@ const imgGroup = "/assets/Group2.svg";
 const imgRectangle27 = "/assets/6e0b5c610eaa9e9576dc2f40d3cc87fd56fab813.png";
 
 export default function Footer() {
-    const { t } = useLanguage();
+    const { t, footer } = useLanguage();
+
+    // Fallback values if footer data is missing from CMS
+    const title = footer?.title || "REG.TECH.LAW.ALL";
+    const description = footer?.description || "Vivemos o presente olhando para o que vem a seguir. Conectamos Direito e tecnologia para que negócios possam inovar com segurança, crescer com estratégia e conquistar espaço em um mundo em constante mudança.";
+    const email = footer?.email || "contato@garciaalves.com";
+    const phone = footer?.phone || "61 9 9999 9999";
+    const addressLines = footer?.address || [
+        "shn qu. 1 conj. a bloco a sala 1113",
+        "edifício leaptower — asa norte",
+        "brasília-df, 70701-010"
+    ];
+    const socialLinks = footer?.socialLinks || [
+        { platform: "linkedin", url: "#" }
+    ];
+
+    // Split title for styling if it contains the pattern .ALL
+    const renderTitle = () => {
+        if (title.includes('.ALL')) {
+            const [main, ...rest] = title.split('.ALL');
+            return (
+                <>
+                    {main}<span className="text-primary">.ALL</span>{rest.join('.ALL')}
+                </>
+            );
+        }
+        return title;
+    };
+
     return (
         <footer id="contato" className="relative w-full bg-accent overflow-hidden pt-20 pb-20 lg:pt-32 lg:pb-32">
             {/* Decorative Texture overlays */}
@@ -20,10 +48,10 @@ export default function Footer() {
                 {/* Intro */}
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-[16px] xl:gap-[100px] items-start mb-16 lg:mb-24 mt-4 lg:mt-12">
                     <h2 className="font-handel text-[35px] md:text-[50px] lg:text-[61.8px] leading-[1] text-gray-dark lg:whitespace-nowrap flex-shrink-0">
-                        REG.TECH.LAW<span className="text-primary">.ALL</span>
+                        {renderTitle()}
                     </h2>
                     <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] text-gray-dark lg:max-w-[585px] pt-2">
-                        Vivemos o presente olhando para o que vem a seguir. Conectamos Direito e tecnologia para que negócios possam inovar com segurança, crescer com estratégia e conquistar espaço em um mundo em constante mudança.
+                        {description}
                     </p>
                 </div>
 
@@ -57,17 +85,27 @@ export default function Footer() {
                         <Link href="/#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-3">
-                        <a href="#" className="hover:text-primary transition-colors lowercase">linkedin</a>
-                        <a href="mailto:contato@garciaalves.com" className="hover:text-primary transition-colors lowercase mt-auto mb-10">contato@garciaalves.com</a>
+                        {socialLinks.map((link, i) => (
+                            <a 
+                                key={i} 
+                                href={link.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:text-primary transition-colors lowercase"
+                            >
+                                {link.platform}
+                            </a>
+                        ))}
+                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors lowercase mt-auto mb-10">{email}</a>
                     </div>
                     <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1">
-                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[0]}</p>
-                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[1]}</p>
-                        <p className="m-0 lowercase leading-[1.3]">{t.footer_contact.address[2]}</p>
+                        {addressLines.map((line, i) => (
+                            <p key={i} className="m-0 lowercase leading-[1.3]">{line}</p>
+                        ))}
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-2 pt-1 lg:items-end">
                         <span className="text-black lg:hidden">{t.footer_contact.phone_label}</span>
-                        <a href="tel:61999999999" className="hover:text-primary transition-colors">61 9 9999 9999</a>
+                        <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:text-primary transition-colors">{phone}</a>
                     </div>
                 </div>
             </div>

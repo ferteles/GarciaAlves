@@ -4,6 +4,7 @@ import { OrganizationJsonLd, LegalServiceJsonLd } from "@/components/JsonLd";
 import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import { LanguageProvider } from "@/context/LanguageContext";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const siteUrl = "https://garciaalves.adv.br";
 const defaultTitle = "Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia";
@@ -84,13 +85,21 @@ export default async function RootLayout({
 }>) {
   
   let menuData = null;
+  let footerData = null;
+  let whatsappData = null;
   try {
     const payload = await getPayload({ config: configPromise })
     menuData = await (payload as any).findGlobal({
       slug: 'main-menu',
     })
+    footerData = await (payload as any).findGlobal({
+      slug: 'footer',
+    })
+    whatsappData = await (payload as any).findGlobal({
+      slug: 'whatsapp',
+    })
   } catch (err) {
-    console.error("Layout: Error fetching main-menu global:", err);
+    console.error("Layout: Error fetching globals:", err);
   }
 
   return (
@@ -98,8 +107,13 @@ export default async function RootLayout({
       <body className="antialiased font-sans text-foreground bg-background" suppressHydrationWarning>
         <OrganizationJsonLd />
         <LegalServiceJsonLd />
-        <LanguageProvider initialMenu={menuData as any}>
+        <LanguageProvider 
+          initialMenu={menuData as any} 
+          initialFooter={footerData as any}
+          initialWhatsApp={whatsappData as any}
+        >
           {children}
+          <FloatingWhatsApp />
         </LanguageProvider>
       </body>
     </html>

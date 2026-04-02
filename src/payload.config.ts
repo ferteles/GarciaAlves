@@ -12,6 +12,8 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { HomePage } from './globals/HomePage'
 import { MainMenu } from './globals/MainMenu'
+import { Footer } from './globals/Footer'
+import { WhatsApp } from './globals/WhatsApp'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +30,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts],
-  globals: [HomePage, MainMenu],
+  globals: [HomePage, MainMenu, Footer, WhatsApp],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'garcia-alves-secret-key',
   typescript: {
