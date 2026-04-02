@@ -17,11 +17,11 @@ export default function TopNav() {
 
                 {/* Desktop Menu */}
                 <nav className="hidden lg:flex items-center gap-[49px] font-handel text-[20.3px] lowercase tracking-normal">
-                    <Link href="#quem-somos" className="hover:text-primary transition-colors">quem somos</Link>
-                    <Link href="#areas" className="hover:text-primary transition-colors">áreas de atuação</Link>
-                    <Link href="#advogados" className="hover:text-primary transition-colors">advogados</Link>
+                    <Link href="/#quem-somos" className="hover:text-primary transition-colors">quem somos</Link>
+                    <Link href="/#areas" className="hover:text-primary transition-colors">áreas de atuação</Link>
+                    <Link href="/#advogados" className="hover:text-primary transition-colors">advogados</Link>
                     <Link href="/blog" className="hover:text-primary transition-colors">blog</Link>
-                    <Link href="#contato" className="hover:text-primary transition-colors">contato</Link>
+                    <Link href="/#contato" className="hover:text-primary transition-colors">contato</Link>
                     <span className="text-primary cursor-pointer transition-colors ml-2 uppercase">PT/EN</span>
                 </nav>
 
@@ -46,11 +46,11 @@ export default function TopNav() {
             <div className={`fixed inset-0 z-40 bg-white transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
                 }`}>
                 <nav className="flex flex-col items-center justify-center h-full gap-8 font-handel text-2xl text-black lowercase tracking-normal">
-                    <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">quem somos</Link>
-                    <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">áreas de atuação</Link>
-                    <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">advogados</Link>
+                    <Link href="/#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">quem somos</Link>
+                    <Link href="/#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">áreas de atuação</Link>
+                    <Link href="/#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">advogados</Link>
                     <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">blog</Link>
-                    <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">contato</Link>
+                    <Link href="/#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">contato</Link>
                     <span className="text-primary mt-4 uppercase">PT/EN</span>
                 </nav>
             </div>

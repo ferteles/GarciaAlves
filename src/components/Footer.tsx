@@ -1,4 +1,5 @@
 "use client";
+// Force re-hydration check after navigation fix
 
 import Link from 'next/link';
 import { useLanguage } from "@/context/LanguageContext";
@@ -49,11 +50,11 @@ export default function Footer() {
                 {/* Links Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
                     <div className="flex flex-col gap-4 lg:col-span-4 xl:col-span-3 lg:pl-[12px]">
-                        <Link href="#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
-                        <Link href="#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
-                        <Link href="#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
+                        <Link href="/#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
+                        <Link href="/#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
+                        <Link href="/#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
                         <Link href="/blog" className="hover:text-primary transition-colors lowercase">{t.nav.blog}</Link>
-                        <Link href="#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
+                        <Link href="/#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-3">
                         <a href="#" className="hover:text-primary transition-colors lowercase">linkedin</a>

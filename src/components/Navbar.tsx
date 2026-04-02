@@ -1,4 +1,5 @@
 "use client";
+// Force re-hydration check after navigation fix
 
 import Image from "next/image";
 import Link from "next/link";
@@ -77,7 +78,11 @@ export default function Navbar() {
                     style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
                 >
                     {menuItems.map((item, index) => (
-                      <Link key={index} href={item.link} className="hover:text-primary transition-colors whitespace-nowrap">
+                      <Link 
+                        key={index} 
+                        href={item.link.startsWith('#') ? `/${item.link}` : item.link} 
+                        className="hover:text-primary transition-colors whitespace-nowrap"
+                      >
                         {item.label}
                       </Link>
                     ))}
@@ -135,7 +140,12 @@ export default function Navbar() {
                 }}
             >
                 {menuItems.map((item, index) => (
-                  <Link key={index} href={item.link} onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                  <Link 
+                    key={index} 
+                    href={item.link.startsWith('#') ? `/${item.link}` : item.link} 
+                    onClick={() => setIsOpen(false)} 
+                    className="hover:text-primary transition-colors"
+                  >
                     {item.label}
                   </Link>
                 ))}

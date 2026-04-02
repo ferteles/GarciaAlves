@@ -1,4 +1,5 @@
 "use client";
+// Force re-hydration check after navigation fix
 
 import Image from "next/image";
 import Link from "next/link";
@@ -78,16 +79,16 @@ export default function Header() {
                 <nav className="hidden lg:flex items-center justify-end gap-x-6 xl:gap-x-10 font-handel font-bold tracking-normal text-black shrink-0 ml-6"
                     style={{ fontSize: "clamp(13px, 1.1vw, 18px)" }}
                 >
-                    <Link href="#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
+                    <Link href="/#quem-somos" className="hover:text-primary transition-colors whitespace-nowrap">
                         {t.nav.about}
                     </Link>
-                    <Link href="#areas" className="hover:text-primary transition-colors whitespace-nowrap">
+                    <Link href="/#areas" className="hover:text-primary transition-colors whitespace-nowrap">
                         {t.nav.expertise}
                     </Link>
-                    <Link href="#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
+                    <Link href="/#advogados" className="hover:text-primary transition-colors whitespace-nowrap">
                         {t.nav.lawyers}
                     </Link>
-                    <Link href="#contato" className="hover:text-primary transition-colors whitespace-nowrap">
+                    <Link href="/#contato" className="hover:text-primary transition-colors whitespace-nowrap">
                         {t.nav.contact}
                     </Link>
                     <Link href="/blog" className="hover:text-primary transition-colors whitespace-nowrap">
@@ -145,19 +146,19 @@ export default function Header() {
                     transition: "opacity 0.3s ease, transform 0.3s ease",
                 }}
             >
-                <Link href="#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                <Link href="/#quem-somos" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     {t.nav.about}
                 </Link>
-                <Link href="#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                <Link href="/#areas" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     {t.nav.expertise}
                 </Link>
-                <Link href="#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                <Link href="/#advogados" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     {t.nav.lawyers}
                 </Link>
                 <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     {t.nav.blog}
                 </Link>
-                <Link href="#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
+                <Link href="/#contato" onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                     {t.nav.contact}
                 </Link>
             </div>
