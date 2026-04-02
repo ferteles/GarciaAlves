@@ -5,6 +5,7 @@ export const WhatsApp: GlobalConfig = {
   label: 'WhatsApp Flutuante',
   access: {
     read: () => true,
+    update: () => true, // Permite atualização (pode ser restrito a admin se preferir)
   },
   fields: [
     {

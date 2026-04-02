@@ -5,6 +5,7 @@ export const Footer: GlobalConfig = {
   label: 'Rodapé (Footer)',
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     {
@@ -59,6 +60,12 @@ export const Footer: GlobalConfig = {
               label: 'E-mail de Contato',
               type: 'text',
               defaultValue: 'contato@garciaalves.com',
+              validate: (val: string | string[] | null | undefined) => {
+                if (!val || typeof val !== 'string') return 'O e-mail é obrigatório';
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(val)) return 'Insira um e-mail válido';
+                return true;
+              },
             },
             {
               name: 'phone',
