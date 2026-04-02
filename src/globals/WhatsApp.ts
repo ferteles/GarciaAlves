@@ -18,9 +18,18 @@ export const WhatsApp: GlobalConfig = {
       label: 'Número do WhatsApp (com DDD)',
       type: 'text',
       defaultValue: '5561999999999',
+      required: true,
+      validate: (val: string | string[] | null | undefined) => {
+        if (!val || typeof val !== 'string') return 'O número é obrigatório';
+        const digitsOnly = val.replace(/\D/g, '');
+        if (digitsOnly.length < 10) return 'O número deve ter pelo menos 10 dígitos (Ex: 55 + DDD + Número)';
+        if (digitsOnly.length > 15) return 'O número está muito longo';
+        if (val !== digitsOnly) return 'Use apenas números, sem espaços, traços ou parênteses';
+        return true;
+      },
       admin: {
         placeholder: '5561999999999',
-        description: 'Apenas números, incluindo o código do país (55 para Brasil).',
+        description: 'Apenas números, incluindo o código do país (55 para Brasil). Ex: 5561999999999',
       },
     },
     {
