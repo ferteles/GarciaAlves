@@ -204,6 +204,7 @@ export const HomePage: GlobalConfig = {
                   name: 'lawyersList_pt',
                   label: 'Lista de Advogados (PT)',
                   type: 'array',
+                  maxRows: 4,
                   fields: [
                     { name: 'name', label: 'Nome Completo', type: 'text' },
                     { name: 'role', label: 'Cargo (ex: Sócio)', type: 'text' },
@@ -224,6 +225,7 @@ export const HomePage: GlobalConfig = {
                   name: 'lawyersList_en',
                   label: 'Lawyers List (EN)',
                   type: 'array',
+                  maxRows: 4,
                   fields: [
                     { name: 'name', label: 'Full Name', type: 'text' },
                     { name: 'role', label: 'Role (e.g., Partner)', type: 'text' },
