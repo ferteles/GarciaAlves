@@ -13,6 +13,7 @@ export const Users: CollectionConfig = {
   hooks: {
     afterLogin: [
       async ({ req: { payload, user } }) => {
+        if (!user) return
         await payload.create({
           collection: 'audit-logs' as any,
           data: {
