@@ -14,6 +14,8 @@ import { HomePage } from './globals/HomePage'
 import { MainMenu } from './globals/MainMenu'
 import { Footer } from './globals/Footer'
 import { WhatsApp } from './globals/WhatsApp'
+import { AuditLogs } from './collections/AuditLogs'
+import { addAuditLog, addDeleteAuditLog, addGlobalAuditLog } from './utilities/auditHooks'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,8 +31,18 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts],
-  globals: [HomePage, MainMenu, Footer, WhatsApp],
+  collections: [
+    { ...Users, hooks: { ...Users.hooks, afterChange: [...(Users.hooks?.afterChange || []), addAuditLog('Administradores')], afterDelete: [...(Users.hooks?.afterDelete || []), addDeleteAuditLog('Administradores')] } }, 
+    { ...Media, hooks: { ...Media.hooks, afterChange: [...(Media.hooks?.afterChange || []), addAuditLog('Mídia')], afterDelete: [...(Media.hooks?.afterDelete || []), addDeleteAuditLog('Mídia')] } }, 
+    { ...Posts, hooks: { ...Posts.hooks, afterChange: [...(Posts.hooks?.afterChange || []), addAuditLog('Posts')], afterDelete: [...(Posts.hooks?.afterDelete || []), addDeleteAuditLog('Posts')] } },
+    AuditLogs
+  ],
+  globals: [
+    { ...HomePage, hooks: { ...HomePage.hooks, afterChange: [...(HomePage.hooks?.afterChange || []), addGlobalAuditLog('Página Inicial')] } }, 
+    { ...MainMenu, hooks: { ...MainMenu.hooks, afterChange: [...(MainMenu.hooks?.afterChange || []), addGlobalAuditLog('Menu Principal')] } }, 
+    { ...Footer, hooks: { ...Footer.hooks, afterChange: [...(Footer.hooks?.afterChange || []), addGlobalAuditLog('Rodapé')] } }, 
+    { ...WhatsApp, hooks: { ...WhatsApp.hooks, afterChange: [...(WhatsApp.hooks?.afterChange || []), addGlobalAuditLog('WhatsApp')] } }
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'garcia-alves-secret-key',
   typescript: {

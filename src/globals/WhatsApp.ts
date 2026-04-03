@@ -20,17 +20,26 @@ export const WhatsApp: GlobalConfig = {
       type: 'text',
       defaultValue: '5561999999999',
       required: true,
+      hooks: {
+        beforeChange: [
+          ({ value }) => {
+            if (typeof value === 'string') {
+              return value.replace(/\D/g, ''); // Garante que só números sejam salvos no banco
+            }
+            return value;
+          },
+        ],
+      },
       validate: (val: string | string[] | null | undefined) => {
         if (!val || typeof val !== 'string') return 'O número é obrigatório';
         const digitsOnly = val.replace(/\D/g, '');
         if (digitsOnly.length < 10) return 'O número deve ter pelo menos 10 dígitos (Ex: 55 + DDD + Número)';
         if (digitsOnly.length > 15) return 'O número está muito longo';
-        if (val !== digitsOnly) return 'Use apenas números, sem espaços, traços ou parênteses';
         return true;
       },
       admin: {
-        placeholder: '5561999999999',
-        description: 'Apenas números, incluindo o código do país (55 para Brasil). Ex: 5561999999999',
+        placeholder: '55 61 99999-9999',
+        description: 'Ex: 55 61 99999-9999 (O sistema removerá espaços e traços automaticamente)',
       },
     },
     {
