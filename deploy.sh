@@ -15,7 +15,7 @@ echo "🔄 Sincronizando banco de dados..."
 DB_PATH="/home/garciaalves/database/payload.db"
 
 # Tenta o db:push padrão
-NODE_OPTIONS="--no-warnings" npm run payload db:push || echo "⚠️  Aviso: Sincronização automática via Payload falhou. Aplicando correções manuais..."
+NODE_OPTIONS="--no-warnings" npm run payload db:push 2>/dev/null || echo "⚠️  Aviso: Sincronização automática via Payload falhou. Aplicando correções manuais..."
 
 # Garante que as tabelas e colunas de Audit Logs existem (Fallback manual)
 sqlite3 $DB_PATH <<EOF
