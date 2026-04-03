@@ -4,48 +4,45 @@
    ============================================================ */
 
 /* ============================================================
-   VARIÁVEIS GLOBAIS (neutras – independem de tema)
+   ESCALA DE CORES – UMA SÓ ESCALA, VÁLIDA PARA AMBOS OS TEMAS
+   O Payload inverte o mapeamento no dark mode automaticamente:
+     light: elevation-0 → color-base-0 (branco) ... elevation-900 → color-base-900 (preto)
+     dark:  elevation-0 → color-base-900 (preto) ... elevation-900 → color-base-0 (branco)
    ============================================================ */
 :root:root {
-  --theme-primary: #ffdc2e;
-  --theme-accent:  #1f12d4;
+  /* Ponta clara – usada como fundo/superfície no tema claro */
+  --color-base-0:    #ffffff;
+  --color-base-50:   #f4f4fb;
+  --color-base-100:  #e9e9f6;
+  --color-base-150:  #ddddee;
+  --color-base-200:  #d0d0e8;
+  --color-base-250:  #bcbcd8;
+  --color-base-300:  #a4a4c4;
+  --color-base-350:  #8888ac;
+  --color-base-400:  #6c6c94;
+  --color-base-450:  #56567c;
+  /* Meio – tons médios, transição */
+  --color-base-500:  #444468;
+  --color-base-550:  #363658;
+  --color-base-600:  #2a2a4a;
+  --color-base-650:  #22223c;
+  --color-base-700:  #1c1c30;
+  --color-base-750:  #171724;
+  /* Ponta escura – usada como fundo/superfície no tema escuro */
+  --color-base-800:  #13131c;
+  --color-base-850:  #101016;
+  --color-base-900:  #0d0d11;
+  --color-base-950:  #08080b;
+  --color-base-1000: #000000;
+
+  /* Cores da marca */
   --color-base-brand:  #ffdc2e;
   --color-base-accent: #1f12d4;
 }
 
 /* ============================================================
-   ESCALA DE CINZAS – TEMA CLARO
-   ============================================================ */
-html[data-theme='light'],
-html:not([data-theme='dark']) {
-  --color-base-0:    #ffffff;
-  --color-base-50:   #f3f3fa;
-  --color-base-100:  #e8e8f6;
-  --color-base-150:  #ddddf0;
-  --color-base-200:  #d2d2ec;
-  --color-base-800:  #2a2a6a;
-  --color-base-900:  #14143c;
-  --color-base-950:  #0a0a24;
-  --color-base-1000: #000000;
-}
-
-/* ============================================================
-   ESCALA DE CINZAS – TEMA ESCURO (neutro com toque frio)
-   ============================================================ */
-html[data-theme='dark'] {
-  --color-base-0:    #111114;
-  --color-base-50:   #18181c;
-  --color-base-100:  #202026;
-  --color-base-150:  #28282f;
-  --color-base-200:  #303038;
-  --color-base-800:  #adadbc;
-  --color-base-900:  #c8c8d4;
-  --color-base-950:  #dfdfe8;
-  --color-base-1000: #f0f0f4;
-}
-
-/* ============================================================
-   FOCO E INPUTS – CLARO: azul / ESCURO: amarelo
+   FOCO E INPUTS
+   Claro: borda azul | Escuro: borda amarela
    ============================================================ */
 html[data-theme='light'] body input:focus,
 html[data-theme='light'] body textarea:focus,
@@ -102,21 +99,19 @@ html[data-theme='dark'] body .btn.btn--style-secondary:hover {
 /* ============================================================
    NAVEGAÇÃO E BARRA LATERAL
    ============================================================ */
-/* Claro: sidebar azulada clara com borda azul no topo */
 html[data-theme='light'] body .nav,
 html:not([data-theme='dark']) body .nav {
   border-top: 4px solid #1f12d4 !important;
-  background: #f3f3fa !important;
+  background: #f4f4fb !important;
 }
 
-/* Escuro: sidebar escura com destaque amarelo no topo */
 html[data-theme='dark'] body .nav {
   border-top: 4px solid #ffdc2e !important;
-  background: #111114 !important;
-  border-right: 1px solid #28282f !important;
+  background: #0d0d11 !important;
+  border-right: 1px solid #1c1c30 !important;
 }
 
-/* Links ativos e hover – azul no claro */
+/* Links ativos e hover – azul no claro, amarelo no escuro */
 html[data-theme='light'] body .nav__link.active,
 html[data-theme='light'] body .nav__link:hover,
 html:not([data-theme='dark']) body .nav__link.active,
@@ -124,14 +119,13 @@ html:not([data-theme='dark']) body .nav__link:hover {
   color: #1f12d4 !important;
 }
 
-/* Links ativos e hover – amarelo no escuro */
 html[data-theme='dark'] body .nav__link.active,
 html[data-theme='dark'] body .nav__link:hover {
   color: #ffdc2e !important;
 }
 
 /* ============================================================
-   TABS E BREADCRUMBS – sublinhado amarelo (ambos os temas)
+   TABS E BREADCRUMBS – sublinhado amarelo
    ============================================================ */
 html body .tabs-field__tab-button--active,
 html body .step-nav__step.is-active {
