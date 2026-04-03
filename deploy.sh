@@ -20,6 +20,7 @@ npm run build
 
 # 5. Reiniciar o processo no PM2
 echo "♻️  Reiniciando PM2..."
-pm2 reload garciaalves
-
-echo "✅ Deploy concluído com sucesso!"
+# Carrega o nvm/node se necessário para encontrar o pm2
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+pm2 reload garciaalves || ~/.npm-global/bin/pm2 reload garciaalves || echo "⚠️  Aviso: Não foi possível reiniciar via PM2 automaticamente."
