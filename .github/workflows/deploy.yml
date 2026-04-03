@@ -16,14 +16,21 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
+          set -x
+          if [ -z "$SSH_HOST" ]; then echo "❌ Erro: SSH_HOST está vazio"; exit 1; fi
+          if [ -z "$SSH_USER" ]; then echo "❌ Erro: SSH_USER está vazio"; exit 1; fi
+          
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          
+          echo "🔍 Fazendo scan do host..."
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
           
-          echo "🔍 Tentando conectar ao servidor..."
-          ssh -i ~/.ssh/id_rsa -o ConnectTimeout=30 "$SSH_USER@$SSH_HOST" << 'EOF'
+          echo "🔍 Tentando conectar..."
+          ssh -i ~/.ssh/id_rsa -v -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" << 'EOF'
             echo "🚀 Conexão estabelecida!"
             cd ~/htdocs/garciaalves.adv.br
             bash deploy.sh
           EOF
+          set +x
