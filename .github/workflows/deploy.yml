@@ -17,6 +17,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          timeout: 60s
+          command_timeout: 30m
+          script_stop: true
           script: |
+            echo "🚀 Conexão estabelecida com sucesso!"
             cd ~/htdocs/garciaalves.adv.br
             bash deploy.sh
