@@ -30,18 +30,18 @@ html:not([data-theme='dark']) {
 }
 
 /* ============================================================
-   ESCALA DE CINZAS – TEMA ESCURO (invertida com base navy)
+   ESCALA DE CINZAS – TEMA ESCURO (neutro com toque frio)
    ============================================================ */
 html[data-theme='dark'] {
-  --color-base-0:    #07071a;
-  --color-base-50:   #0d0d26;
-  --color-base-100:  #141438;
-  --color-base-150:  #1b1b48;
-  --color-base-200:  #22225a;
-  --color-base-800:  #c0c0e8;
-  --color-base-900:  #d8d8f4;
-  --color-base-950:  #ebebfb;
-  --color-base-1000: #f3f3ff;
+  --color-base-0:    #111114;
+  --color-base-50:   #18181c;
+  --color-base-100:  #202026;
+  --color-base-150:  #28282f;
+  --color-base-200:  #303038;
+  --color-base-800:  #adadbc;
+  --color-base-900:  #c8c8d4;
+  --color-base-950:  #dfdfe8;
+  --color-base-1000: #f0f0f4;
 }
 
 /* ============================================================
@@ -109,11 +109,11 @@ html:not([data-theme='dark']) body .nav {
   background: #f3f3fa !important;
 }
 
-/* Escuro: sidebar navy com destaque amarelo no topo */
+/* Escuro: sidebar escura com destaque amarelo no topo */
 html[data-theme='dark'] body .nav {
   border-top: 4px solid #ffdc2e !important;
-  background: #07071a !important;
-  border-right: 1px solid #1b1b48 !important;
+  background: #111114 !important;
+  border-right: 1px solid #28282f !important;
 }
 
 /* Links ativos e hover – azul no claro */
