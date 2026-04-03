@@ -78,21 +78,23 @@ export const Footer: GlobalConfig = {
               label: 'Endereço (PT)',
               fields: [
                 {
-                  name: 'address_pt',
-                  label: 'Linhas de Endereço (PT)',
-                  type: 'array',
-                  fields: [
-                    {
-                      name: 'line',
-                      type: 'text',
-                    }
-                  ],
-                  defaultValue: [
-                    { line: 'shn qu. 1 conj. a bloco a sala 1113' },
-                    { line: 'edifício leaptower — asa norte' },
-                    { line: 'brasília-df, 70701-010' },
-                  ]
-                }
+                  name: 'address_line1_pt',
+                  label: 'Endereço - Linha 1 (PT)',
+                  type: 'text',
+                  defaultValue: 'SHN QU. 1 CONJ. A BLOCO A SALA 1113',
+                },
+                {
+                  name: 'address_line2_pt',
+                  label: 'Endereço - Linha 2 (PT)',
+                  type: 'text',
+                  defaultValue: 'EDIFÍCIO LEAPTOWER — ASA NORTE',
+                },
+                {
+                  name: 'address_line3_pt',
+                  label: 'Endereço - Linha 3 (PT)',
+                  type: 'text',
+                  defaultValue: 'BRASÍLIA-DF, 70701-010',
+                },
               ]
             },
             {
@@ -100,21 +102,23 @@ export const Footer: GlobalConfig = {
               label: 'Address (EN)',
               fields: [
                 {
-                  name: 'address_en',
-                  label: 'Address Lines (EN)',
-                  type: 'array',
-                  fields: [
-                    {
-                      name: 'line',
-                      type: 'text',
-                    }
-                  ],
-                  defaultValue: [
-                    { line: 'shn qu. 1 conj. a bloco a suite 1113' },
-                    { line: 'leaptower building — asa norte' },
-                    { line: 'brasília-df, 70701-010' },
-                  ]
-                }
+                  name: 'address_line1_en',
+                  label: 'Address - Line 1 (EN)',
+                  type: 'text',
+                  defaultValue: 'SHN QU. 1 CONJ. A BLOCO A SUITE 1113',
+                },
+                {
+                  name: 'address_line2_en',
+                  label: 'Address - Line 2 (EN)',
+                  type: 'text',
+                  defaultValue: 'LEAPTOWER BUILDING — ASA NORTE',
+                },
+                {
+                  name: 'address_line3_en',
+                  label: 'Address - Line 3 (EN)',
+                  type: 'text',
+                  defaultValue: 'BRASÍLIA-DF, 70701-010',
+                },
               ]
             }
           ],

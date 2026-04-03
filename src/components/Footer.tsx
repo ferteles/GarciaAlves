@@ -38,7 +38,7 @@ export default function Footer() {
     };
 
     return (
-        <footer id="contato" className="relative w-full bg-accent overflow-hidden pt-20 pb-20 lg:pt-32 lg:pb-32">
+        <footer id="contato" className="relative w-full bg-accent overflow-hidden pt-20 pb-20 lg:pt-32 lg:pb-32 uppercase">
             {/* Decorative Texture overlays */}
             <div className="absolute top-0 left-0 w-full h-full opacity-25 mix-blend-luminosity pointer-events-none z-0 bg-[#d9d9d9]">
                 <img src={imgRectangle27} alt="" className="w-full h-full object-cover" />
@@ -57,7 +57,7 @@ export default function Footer() {
 
                 {/* Form Section */}
                 <div className="flex flex-col w-full mb-20 lg:mb-32 lg:max-w-[1100px]">
-                    <h3 className="font-handel text-[20px] lg:text-[25px] leading-[1] text-black mb-4 uppercase lg:normal-case">{t.footer_contact.title}</h3>
+                    <h3 className="font-handel text-[20px] lg:text-[25px] leading-[1] text-black mb-4">{t.footer_contact.title}</h3>
                     <form className="flex flex-col md:flex-row w-full">
                         <input
                             type="email"
@@ -78,11 +78,11 @@ export default function Footer() {
                 {/* Links Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
                     <div className="flex flex-col gap-4 lg:col-span-4 xl:col-span-3 lg:pl-[12px]">
-                        <Link href="/#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
-                        <Link href="/#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
-                        <Link href="/#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
-                        <Link href="/blog" className="hover:text-primary transition-colors lowercase">{t.nav.blog}</Link>
-                        <Link href="/#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
+                        <Link href="/#quem-somos" className="hover:text-primary transition-colors">{t.nav.about}</Link>
+                        <Link href="/#areas" className="hover:text-primary transition-colors">{t.nav.expertise}</Link>
+                        <Link href="/#advogados" className="hover:text-primary transition-colors">{t.nav.lawyers}</Link>
+                        <Link href="/blog" className="hover:text-primary transition-colors">{t.nav.blog}</Link>
+                        <Link href="/#contato" className="hover:text-primary transition-colors">{t.nav.contact}</Link>
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-3">
                         {socialLinks.map((link, i) => (
@@ -91,16 +91,16 @@ export default function Footer() {
                                 href={link.url} 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
-                                className="hover:text-primary transition-colors lowercase"
+                                className="hover:text-primary transition-colors"
                             >
                                 {link.platform}
                             </a>
                         ))}
-                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors lowercase mt-auto mb-10">{email}</a>
+                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors mt-auto mb-10">{email}</a>
                     </div>
                     <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1">
                         {addressLines.map((line, i) => (
-                            <p key={i} className="m-0 lowercase leading-[1.3]">{line}</p>
+                            <p key={i} className="m-0 leading-[1.3]">{line}</p>
                         ))}
                     </div>
                     <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-2 pt-1 lg:items-end">

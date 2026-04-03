@@ -20,8 +20,12 @@ export interface FooterData {
   description_en: string;
   email: string;
   phone: string;
-  address_pt: { line: string }[];
-  address_en: { line: string }[];
+  address_line1_pt: string;
+  address_line2_pt: string;
+  address_line3_pt: string;
+  address_line1_en: string;
+  address_line2_en: string;
+  address_line3_en: string;
   socialLinks: { platform: string; url: string }[];
 }
 
@@ -105,7 +109,9 @@ export function LanguageProvider({
     description: language === 'pt' ? initialFooter.description_pt : initialFooter.description_en,
     email: initialFooter.email,
     phone: initialFooter.phone,
-    address: (language === 'pt' ? initialFooter.address_pt : initialFooter.address_en)?.map(a => a.line) || [],
+    address: language === 'pt' 
+      ? [initialFooter.address_line1_pt, initialFooter.address_line2_pt, initialFooter.address_line3_pt] 
+      : [initialFooter.address_line1_en, initialFooter.address_line2_en, initialFooter.address_line3_en],
     socialLinks: initialFooter.socialLinks || [],
   } : null;
 
@@ -124,7 +130,7 @@ export function LanguageProvider({
        description: initialFooter.description_pt,
        email: initialFooter.email,
        phone: initialFooter.phone,
-       address: initialFooter.address_pt?.map(a => a.line) || [],
+       address: [initialFooter.address_line1_pt, initialFooter.address_line2_pt, initialFooter.address_line3_pt],
        socialLinks: initialFooter.socialLinks || [],
     } : null;
 
