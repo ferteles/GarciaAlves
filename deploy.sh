@@ -42,6 +42,45 @@ ALTER TABLE "footer" ADD COLUMN "address_line3_pt" text;
 ALTER TABLE "footer" ADD COLUMN "address_line1_en" text;
 ALTER TABLE "footer" ADD COLUMN "address_line2_en" text;
 ALTER TABLE "footer" ADD COLUMN "address_line3_en" text;
+
+-- Colunas SEO dos posts
+ALTER TABLE "posts" ADD COLUMN "seo_title_pt" text;
+ALTER TABLE "posts" ADD COLUMN "seo_description_pt" text;
+ALTER TABLE "posts" ADD COLUMN "seo_title_en" text;
+ALTER TABLE "posts" ADD COLUMN "seo_description_en" text;
+ALTER TABLE "posts" ADD COLUMN "seo_ogimage_id" integer REFERENCES "media"("id");
+ALTER TABLE "posts" ADD COLUMN "noindex" integer DEFAULT 0;
+
+-- Tabela do global SEO
+CREATE TABLE IF NOT EXISTS "seo" (
+    "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "site_name" text DEFAULT 'Garcia Alves Advocacia',
+    "title_template" text DEFAULT '%s | Garcia Alves Advocacia',
+    "site_url" text DEFAULT 'https://garciaalves.adv.br',
+    "twitter_handle" text DEFAULT '@garciaalvesadv',
+    "default_og_image_id" integer REFERENCES "media"("id"),
+    "google_verification" text,
+    "home_title_pt" text,
+    "home_description_pt" text,
+    "home_title_en" text,
+    "home_description_en" text,
+    "home_og_image_id" integer REFERENCES "media"("id"),
+    "blog_title_pt" text,
+    "blog_description_pt" text,
+    "blog_title_en" text,
+    "blog_description_en" text,
+    "blog_og_image_id" integer REFERENCES "media"("id"),
+    "updated_at" text DEFAULT (CURRENT_TIMESTAMP),
+    "created_at" text DEFAULT (CURRENT_TIMESTAMP)
+);
+
+-- Tabela de palavras-chave do SEO global
+CREATE TABLE IF NOT EXISTS "seo_keywords_pt" (
+    "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "parent_id" integer NOT NULL REFERENCES "seo"("id") ON DELETE CASCADE,
+    "order" integer NOT NULL,
+    "keyword" text
+);
 EOF
 
 # 4. Gerar o build do Next.js
