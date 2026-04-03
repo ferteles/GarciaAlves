@@ -32,9 +32,16 @@ CREATE TABLE IF NOT EXISTS "audit_logs" (
 );
 
 -- Garante que as colunas internas de relacionamento (RELs) existam
--- O comando de erro será silenciado se a coluna já existir
 ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "audit_logs_id" integer REFERENCES "audit_logs"("id");
 ALTER TABLE "payload_preferences_rels" ADD COLUMN "audit_logs_id" integer REFERENCES "audit_logs"("id");
+
+-- Sincroniza as novas colunas do Rodapé (Fallback manual)
+ALTER TABLE "footer" ADD COLUMN "address_line1_pt" text;
+ALTER TABLE "footer" ADD COLUMN "address_line2_pt" text;
+ALTER TABLE "footer" ADD COLUMN "address_line3_pt" text;
+ALTER TABLE "footer" ADD COLUMN "address_line1_en" text;
+ALTER TABLE "footer" ADD COLUMN "address_line2_en" text;
+ALTER TABLE "footer" ADD COLUMN "address_line3_en" text;
 EOF
 
 # 4. Gerar o build do Next.js
