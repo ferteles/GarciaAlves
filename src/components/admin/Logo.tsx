@@ -7,9 +7,9 @@ export function Logo() {
       <img
         src="/assets/logo.svg"
         alt="Garcia Alves Advocacia"
-        width={193}
-        height={36}
-        style={{ display: 'block', width: '193px', height: '36px' }}
+        width={100}
+        height={18}
+        style={{ display: 'block', width: '100px', height: '18px' }}
       />
     </div>
   )

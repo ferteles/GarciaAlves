@@ -127,6 +127,21 @@ html body [class*='active']::after {
 }
 
 /* ============================================================
+   LOGO - TAMANHO FIXO DESKTOP E MOBILE
+   ============================================================ */
+.step-nav__home {
+  width: 100px !important;
+  height: 18px !important;
+  position: relative;
+}
+
+.step-nav__home img {
+  width: 100px !important;
+  height: 18px !important;
+  display: block;
+}
+
+/* ============================================================
    TEMA DARK - AJUSTES
    ============================================================ */
 html[data-theme='dark'] body {
