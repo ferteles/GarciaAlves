@@ -75,7 +75,7 @@ export default function Footer() {
                 {/* Links Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
                     {/* Col 1: Navigation */}
-                    <div className="flex flex-col gap-4 lg:col-span-4 lg:pl-[12px]">
+                    <div className="hidden lg:flex flex-col gap-4 lg:col-span-4 lg:pl-[12px]">
                         <Link href="/#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
                         <Link href="/#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
                         <Link href="/#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
