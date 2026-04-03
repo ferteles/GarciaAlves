@@ -10,17 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          timeout: 60s
-          command_timeout: 30m
-          script_stop: true
-          script: |
-            echo "🚀 Conexão estabelecida com sucesso!"
+      - name: Setup SSH and Deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          
+          echo "🔍 Tentando conectar ao servidor..."
+          ssh -i ~/.ssh/id_rsa -o ConnectTimeout=30 "$SSH_USER@$SSH_HOST" << 'EOF'
+            echo "🚀 Conexão estabelecida!"
             cd ~/htdocs/garciaalves.adv.br
             bash deploy.sh
+          EOF
