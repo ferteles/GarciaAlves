@@ -14,6 +14,7 @@ import { HomePage } from './globals/HomePage'
 import { MainMenu } from './globals/MainMenu'
 import { Footer } from './globals/Footer'
 import { WhatsApp } from './globals/WhatsApp'
+import { Seo } from './globals/Seo'
 import { AuditLogs } from './collections/AuditLogs'
 import { addAuditLog, addDeleteAuditLog, addGlobalAuditLog } from './utilities/auditHooks'
 
@@ -44,10 +45,11 @@ export default buildConfig({
     AuditLogs
   ],
   globals: [
-    { ...HomePage, hooks: { ...HomePage.hooks, afterChange: [...(HomePage.hooks?.afterChange || []), addGlobalAuditLog('Página Inicial')] } }, 
-    { ...MainMenu, hooks: { ...MainMenu.hooks, afterChange: [...(MainMenu.hooks?.afterChange || []), addGlobalAuditLog('Menu Principal')] } }, 
-    { ...Footer, hooks: { ...Footer.hooks, afterChange: [...(Footer.hooks?.afterChange || []), addGlobalAuditLog('Rodapé')] } }, 
-    { ...WhatsApp, hooks: { ...WhatsApp.hooks, afterChange: [...(WhatsApp.hooks?.afterChange || []), addGlobalAuditLog('WhatsApp')] } }
+    { ...HomePage, hooks: { ...HomePage.hooks, afterChange: [...(HomePage.hooks?.afterChange || []), addGlobalAuditLog('Página Inicial')] } },
+    { ...MainMenu, hooks: { ...MainMenu.hooks, afterChange: [...(MainMenu.hooks?.afterChange || []), addGlobalAuditLog('Menu Principal')] } },
+    { ...Footer, hooks: { ...Footer.hooks, afterChange: [...(Footer.hooks?.afterChange || []), addGlobalAuditLog('Rodapé')] } },
+    { ...WhatsApp, hooks: { ...WhatsApp.hooks, afterChange: [...(WhatsApp.hooks?.afterChange || []), addGlobalAuditLog('WhatsApp')] } },
+    { ...Seo, hooks: { ...Seo.hooks, afterChange: [...(Seo.hooks?.afterChange || []), addGlobalAuditLog('SEO')] } }
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'garcia-alves-secret-key',

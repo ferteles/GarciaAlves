@@ -108,5 +108,75 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    // ─── SEO ─────────────────────────────────────────────────
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'SEO',
+          fields: [
+            {
+              type: 'collapsible',
+              label: '🇧🇷 Português',
+              fields: [
+                {
+                  name: 'seo_title_pt',
+                  label: 'Título SEO (PT)',
+                  type: 'text',
+                  admin: {
+                    description: 'Override do título para buscadores. Deixe em branco para usar o título do artigo.',
+                  },
+                },
+                {
+                  name: 'seo_description_pt',
+                  label: 'Meta Descrição (PT)',
+                  type: 'textarea',
+                  admin: {
+                    description: 'Máx. 160 caracteres. Deixe em branco para usar o resumo do artigo.',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'collapsible',
+              label: '🇺🇸 English',
+              fields: [
+                {
+                  name: 'seo_title_en',
+                  label: 'SEO Title (EN)',
+                  type: 'text',
+                  admin: {
+                    description: 'Override title for search engines. Leave blank to use the article title.',
+                  },
+                },
+                {
+                  name: 'seo_description_en',
+                  label: 'Meta Description (EN)',
+                  type: 'textarea',
+                  admin: {
+                    description: 'Max. 160 characters. Leave blank to use the article excerpt.',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'seo_ogImage',
+              label: 'Imagem OG (override, 1200×630px)',
+              type: 'upload',
+              relationTo: 'media',
+              admin: {
+                description: 'Deixe em branco para usar a imagem de capa do artigo.',
+              },
+            },
+            {
+              name: 'noindex',
+              label: 'Não indexar este artigo (noindex)',
+              type: 'checkbox',
+              defaultValue: false,
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

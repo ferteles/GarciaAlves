@@ -36,20 +36,19 @@ export async function generateMetadata(
   const post: any = postsData.docs[0]
   if (!post) return {}
 
-  const title = post.title_pt || post.title || ''
+  // Usa campos SEO de override quando preenchidos, senão cai no conteúdo do artigo
+  const title = post.seo_title_pt || post.title_pt || post.title || ''
   const excerpt = post.excerpt_pt || post.excerpt || ''
-  const description = excerpt
-    ? excerpt.slice(0, 160)
-    : `Artigo jurídico — ${title} | Garcia Alves Advocacia`
+  const description = (post.seo_description_pt || excerpt || '').slice(0, 160)
+    || `Artigo jurídico — ${title} | Garcia Alves Advocacia`
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`
-  const imageUrl = post.image?.url || `${siteUrl}/assets/og-default.png`
+  const imageUrl = post.seo_ogImage?.url || post.image?.url || `${siteUrl}/assets/og-default.png`
 
   return {
     title,
     description,
-    alternates: {
-      canonical: canonicalUrl,
-    },
+    ...(post.noindex ? { robots: { index: false, follow: false } } : {}),
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description,
@@ -59,14 +58,7 @@ export async function generateMetadata(
       type: 'article',
       publishedTime: post.date,
       authors: ['Garcia Alves Advocacia'],
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',

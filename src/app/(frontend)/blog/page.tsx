@@ -11,38 +11,36 @@ import { dictionaries, Language } from "@/i18n/dictionaries";
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteUrl = 'https://garciaalves.adv.br'
-  const title = 'Blog Jurídico | Artigos sobre Direito Regulatório, Digital e Empresarial'
-  const description =
-    'Artigos jurídicos e análises sobre Direito Regulatório, Tecnologia, LGPD, Inteligência Artificial e Advocacia Empresarial. Insights produzidos por advogados especializados em Brasília-DF.'
+  let seo: any = null
+  try {
+    const payload = await getPayload({ config: configPromise })
+    seo = await (payload as any).findGlobal({ slug: 'seo' })
+  } catch {}
+
+  const siteUrl   = seo?.siteUrl || 'https://garciaalves.adv.br'
+  const siteName  = seo?.siteName || 'Garcia Alves Advocacia'
+  const title     = seo?.blogTitle_pt || 'Blog Jurídico | Artigos sobre Direito Regulatório, Digital e Empresarial'
+  const desc      = seo?.blogDescription_pt || 'Artigos jurídicos e análises sobre Direito Regulatório, Tecnologia, LGPD, Inteligência Artificial e Advocacia Empresarial. Insights produzidos por advogados especializados em Brasília-DF.'
+  const ogImage   = seo?.blogOgImage?.url || seo?.defaultOgImage?.url || '/assets/og-default.png'
 
   return {
     title,
-    description,
-    alternates: {
-      canonical: `${siteUrl}/blog`,
-    },
+    description: desc,
+    alternates: { canonical: `${siteUrl}/blog` },
     openGraph: {
       title,
-      description,
+      description: desc,
       url: `${siteUrl}/blog`,
-      siteName: 'Garcia Alves Advocacia',
+      siteName,
       locale: 'pt_BR',
       type: 'website',
-      images: [
-        {
-          url: '/assets/og-default.png',
-          width: 1200,
-          height: 630,
-          alt: 'Blog — Garcia Alves Advocacia',
-        },
-      ],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `Blog — ${siteName}` }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
-      description,
-      images: ['/assets/og-default.png'],
+      description: desc,
+      images: [ogImage],
     },
   }
 }

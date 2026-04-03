@@ -6,79 +6,70 @@ import configPromise from '@payload-config'
 import { LanguageProvider } from "@/context/LanguageContext";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
-const siteUrl = "https://garciaalves.adv.br";
-const defaultTitle = "Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia";
-const defaultDescription =
-  "Escritório de advocacia especializado em Direito Empresarial, Regulatório e Tecnologia em Brasília-DF. Combinamos visão estratégica e atuação técnica para empresas, empreendedores e instituições.";
-  
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: defaultTitle,
-    template: "%s | Garcia Alves Advocacia",
-  },
-  description: defaultDescription,
-  keywords: [
-    "advocacia empresarial",
-    "direito regulatório",
-    "direito digital",
-    "tecnologia e inovação",
-    "escritório de advocacia Brasília",
-    "advogado empresarial",
-    "consultoria jurídica",
-    "LGPD",
-    "Garcia Alves Advocacia",
-  ],
-  authors: [{ name: "Garcia Alves Advocacia", url: siteUrl }],
-  creator: "Garcia Alves Advocacia",
-  publisher: "Garcia Alves Advocacia",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const fallbackUrl   = 'https://garciaalves.adv.br'
+  const fallbackTitle = 'Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia'
+  const fallbackDesc  = 'Escritório de advocacia especializado em Direito Empresarial, Regulatório e Tecnologia em Brasília-DF. Combinamos visão estratégica e atuação técnica para empresas, empreendedores e instituições.'
+
+  let seo: any = null
+  try {
+    const payload = await getPayload({ config: configPromise })
+    seo = await (payload as any).findGlobal({ slug: 'seo' })
+  } catch {}
+
+  const siteUrl    = seo?.siteUrl       || fallbackUrl
+  const siteName   = seo?.siteName      || 'Garcia Alves Advocacia'
+  const template   = seo?.titleTemplate || '%s | Garcia Alves Advocacia'
+  const title      = seo?.homeTitle_pt  || fallbackTitle
+  const desc       = seo?.homeDescription_pt || fallbackDesc
+  const ogImageUrl = seo?.homeOgImage?.url || seo?.defaultOgImage?.url || '/assets/og-default.png'
+  const twitter    = seo?.twitterHandle || '@garciaalvesadv'
+  const keywords   = seo?.keywords_pt?.map((k: any) => k.keyword).filter(Boolean) || [
+    'advocacia empresarial', 'direito regulatório', 'direito digital',
+    'tecnologia e inovação', 'escritório de advocacia Brasília', 'LGPD', 'Garcia Alves Advocacia',
+  ]
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: title, template },
+    description: desc,
+    keywords,
+    authors: [{ name: siteName, url: siteUrl }],
+    creator: siteName,
+    publisher: siteName,
+    ...(seo?.googleVerification ? { verification: { google: seo.googleVerification } } : {}),
+    robots: {
       index: true,
       follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
+      googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
     },
-  },
-  alternates: {
-    canonical: siteUrl,
-    languages: {
-      "pt-BR": siteUrl,
-      "en-US": `${siteUrl}/en`,
+    alternates: {
+      canonical: siteUrl,
+      languages: { 'pt-BR': siteUrl, 'en-US': `${siteUrl}/en` },
     },
-  },
-  openGraph: {
-    type: "website",
-    locale: "pt_BR",
-    alternateLocale: "en_US",
-    url: siteUrl,
-    siteName: "Garcia Alves Advocacia",
-    title: defaultTitle,
-    description: defaultDescription,
-    images: [
-      {
-        url: "/assets/og-default.png",
-        width: 1200,
-        height: 630,
-        alt: "Garcia Alves Advocacia — Pensar. Conectar. Resolver.",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: defaultTitle,
-    description: defaultDescription,
-    images: ["/assets/og-default.png"],
-    creator: "@garciaalvesadv",
-    site: "@garciaalvesadv",
-  },
-};
+    openGraph: {
+      type: 'website',
+      locale: 'pt_BR',
+      alternateLocale: 'en_US',
+      url: siteUrl,
+      siteName,
+      title,
+      description: desc,
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${siteName} — Pensar. Conectar. Resolver.` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: desc,
+      images: [ogImageUrl],
+      creator: twitter,
+      site: twitter,
+    },
+  }
+}
 
 
 export default async function RootLayout({
