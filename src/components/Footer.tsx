@@ -73,36 +73,46 @@ export default function Footer() {
                 </div>
 
                 {/* Links Section */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
-                    <div className="flex flex-col gap-4 lg:col-span-4 xl:col-span-3 lg:pl-[12px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 font-handel text-[18px] lg:text-[20.3px] text-black mb-16">
+                    {/* Col 1: Navigation */}
+                    <div className="flex flex-col gap-4 lg:col-span-4 lg:pl-[12px]">
                         <Link href="/#quem-somos" className="hover:text-primary transition-colors lowercase">{t.nav.about}</Link>
                         <Link href="/#areas" className="hover:text-primary transition-colors lowercase">{t.nav.expertise}</Link>
                         <Link href="/#advogados" className="hover:text-primary transition-colors lowercase">{t.nav.lawyers}</Link>
                         <Link href="/blog" className="hover:text-primary transition-colors lowercase">{t.nav.blog}</Link>
                         <Link href="/#contato" className="hover:text-primary transition-colors lowercase">{t.nav.contact}</Link>
                     </div>
-                    <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-3">
-                        {socialLinks.map((link, i) => (
-                            <a 
-                                key={i} 
-                                href={link.url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="hover:text-primary transition-colors lowercase"
-                            >
-                                {link.platform}
-                            </a>
-                        ))}
-                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors lowercase mt-auto mb-10">{email}</a>
+
+                    {/* Col 2: Address & Email */}
+                    <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 pt-1">
+                        <div className="uppercase text-[14px] lg:text-[16px] mb-6">
+                            {addressLines.map((line, i) => (
+                                <p key={i} className="m-0 leading-[1.3] text-black">{line}</p>
+                            ))}
+                        </div>
+                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors lowercase text-[18px] lg:text-[20.3px]">{email}</a>
                     </div>
-                    <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1 uppercase text-[14px] lg:text-[16px]">
-                        {addressLines.map((line, i) => (
-                            <p key={i} className="m-0 leading-[1.3] text-black">{line}</p>
-                        ))}
-                    </div>
-                    <div className="flex flex-col gap-4 lg:col-span-2 xl:col-span-2 pt-1 lg:items-end">
-                        <span className="text-black lg:hidden uppercase">{t.footer_contact.phone_label}</span>
-                        <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:text-primary transition-colors">{phone}</a>
+
+                    {/* Col 3: Phone & Socials */}
+                    <div className="flex flex-col gap-6 lg:col-span-4 pt-1 lg:items-end">
+                        <div className="flex flex-col lg:items-end gap-1">
+                            <span className="text-black lg:hidden uppercase text-[14px]">{t.footer_contact.phone_label}</span>
+                            <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:text-primary transition-colors text-[20px] lg:text-[25px] font-bold">{phone}</a>
+                        </div>
+                        
+                        <div className="flex flex-col lg:items-end gap-3 mt-4">
+                            {socialLinks.map((link, i) => (
+                                <a 
+                                    key={i} 
+                                    href={link.url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="hover:text-primary transition-colors lowercase"
+                                >
+                                    {link.platform}
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

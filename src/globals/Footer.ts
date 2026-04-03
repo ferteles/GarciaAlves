@@ -56,24 +56,6 @@ export const Footer: GlobalConfig = {
           label: 'Informações de Contato',
           fields: [
             {
-              name: 'email',
-              label: 'E-mail de Contato',
-              type: 'text',
-              defaultValue: 'contato@garciaalves.com',
-              validate: (val: string | string[] | null | undefined) => {
-                if (!val || typeof val !== 'string') return 'O e-mail é obrigatório';
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(val)) return 'Insira um e-mail válido';
-                return true;
-              },
-            },
-            {
-              name: 'phone',
-              label: 'Telefone/WhatsApp',
-              type: 'text',
-              defaultValue: '61 9 9999 9999',
-            },
-            {
               type: 'collapsible',
               label: 'Endereço (PT)',
               fields: [
@@ -120,12 +102,19 @@ export const Footer: GlobalConfig = {
                   defaultValue: 'BRASÍLIA-DF, 70701-010',
                 },
               ]
-            }
-          ],
-        },
-        {
-          label: 'Redes Sociais',
-          fields: [
+            },
+            {
+              name: 'email',
+              label: 'E-mail de Contato',
+              type: 'text',
+              defaultValue: 'contato@garciaalves.com',
+            },
+            {
+              name: 'phone',
+              label: 'Telefone/WhatsApp',
+              type: 'text',
+              defaultValue: '61 9 9999 9999',
+            },
             {
               name: 'socialLinks',
               label: 'Links de Redes Sociais',
@@ -149,8 +138,8 @@ export const Footer: GlobalConfig = {
                 }
               ]
             }
-          ]
-        }
+          ],
+        },
       ],
     },
   ],
