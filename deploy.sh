@@ -11,14 +11,18 @@ npm install
 
 # 3. Sincronizar o banco de dados (SQLite)
 echo "🔄 Sincronizando banco de dados..."
-# Tenta o db:push padrão com um bypass para o erro do undici no Node 20
-NODE_OPTIONS="--no-warnings" npm run payload db:push || echo "⚠️  Aviso: Sincronização automática falhou. Aplicando correções manuais..."
+# Variável com o caminho do banco para facilitar a manutenção
+DB_PATH="/home/garciaalves/database/payload.db"
 
-# Garante que a tabela de Audit Logs existe (Fallback manual)
-sqlite3 /home/garciaalves/database/payload.db <<EOF
+# Tenta o db:push padrão
+NODE_OPTIONS="--no-warnings" npm run payload db:push || echo "⚠️  Aviso: Sincronização automática via Payload falhou. Aplicando correções manuais..."
+
+# Garante que as tabelas e colunas de Audit Logs existem (Fallback manual)
+sqlite3 $DB_PATH <<EOF
+-- Cria a tabela de logs se não existir
 CREATE TABLE IF NOT EXISTS "audit_logs" (
     "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "user_id" text,
+    "user_id" integer REFERENCES "users"("id"),
     "action" text NOT NULL,
     "collection_name" text,
     "document_id" text,
@@ -26,6 +30,11 @@ CREATE TABLE IF NOT EXISTS "audit_logs" (
     "updated_at" text DEFAULT (CURRENT_TIMESTAMP),
     "created_at" text DEFAULT (CURRENT_TIMESTAMP)
 );
+
+-- Garante que as colunas internas de relacionamento (RELs) existam
+-- O comando de erro será silenciado se a coluna já existir
+ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "audit_logs_id" integer REFERENCES "audit_logs"("id");
+ALTER TABLE "payload_preferences_rels" ADD COLUMN "audit_logs_id" integer REFERENCES "audit_logs"("id");
 EOF
 
 # 4. Gerar o build do Next.js
