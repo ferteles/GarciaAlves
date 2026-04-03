@@ -8,7 +8,7 @@ export const addAuditLog = (collectionName: string): CollectionAfterChangeHook =
   if (!user) return
 
   await payload.create({
-    collection: 'audit-logs',
+    collection: 'audit-logs' as any,
     data: {
       user: user.id,
       action: operation === 'create' ? 'create' : 'update',
@@ -26,7 +26,7 @@ export const addDeleteAuditLog = (collectionName: string): CollectionAfterDelete
   if (!user) return
 
   await payload.create({
-    collection: 'audit-logs',
+    collection: 'audit-logs' as any,
     data: {
       user: user.id,
       action: 'delete',
@@ -44,7 +44,7 @@ export const addGlobalAuditLog = (globalName: string): GlobalAfterChangeHook => 
   if (!user) return
 
   await payload.create({
-    collection: 'audit-logs',
+    collection: 'audit-logs' as any,
     data: {
       user: user.id,
       action: 'update',

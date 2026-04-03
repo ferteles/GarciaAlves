@@ -14,7 +14,7 @@ export const Users: CollectionConfig = {
     afterLogin: [
       async ({ req: { payload, user } }) => {
         await payload.create({
-          collection: 'audit-logs',
+          collection: 'audit-logs' as any,
           data: {
             user: user.id,
             action: 'login',
