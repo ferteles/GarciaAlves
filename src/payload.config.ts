@@ -30,6 +30,12 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/Logo#Logo',
+        Icon: '@/components/admin/Logo#Logo',
+      },
+    },
   },
   collections: [
     { ...Users, hooks: { ...Users.hooks, afterChange: [...(Users.hooks?.afterChange || []), addAuditLog('Administradores')], afterDelete: [...(Users.hooks?.afterDelete || []), addDeleteAuditLog('Administradores')] } }, 
