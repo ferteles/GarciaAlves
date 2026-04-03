@@ -10,6 +10,9 @@ const siteUrl = "https://garciaalves.adv.br";
 const defaultTitle = "Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia";
 const defaultDescription =
   "Escritório de advocacia especializado em Direito Empresarial, Regulatório e Tecnologia em Brasília-DF. Combinamos visão estratégica e atuação técnica para empresas, empreendedores e instituições.";
+  
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
