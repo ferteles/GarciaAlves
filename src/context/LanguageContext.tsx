@@ -130,7 +130,11 @@ export function LanguageProvider({
        description: initialFooter.description_pt,
        email: initialFooter.email,
        phone: initialFooter.phone,
-       address: [initialFooter.address_line1_pt, initialFooter.address_line2_pt, initialFooter.address_line3_pt],
+       address: [
+         initialFooter.address_line1_pt || "", 
+         initialFooter.address_line2_pt || "", 
+         initialFooter.address_line3_pt || ""
+       ],
        socialLinks: initialFooter.socialLinks || [],
     } : null;
 

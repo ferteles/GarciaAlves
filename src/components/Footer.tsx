@@ -1,6 +1,7 @@
 "use client";
 // Force re-hydration check after navigation fix
 
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,11 +16,7 @@ export default function Footer() {
     const description = footer?.description || "Vivemos o presente olhando para o que vem a seguir. Conectamos Direito e tecnologia para que negócios possam inovar com segurança, crescer com estratégia e conquistar espaço em um mundo em constante mudança.";
     const email = footer?.email || "contato@garciaalves.com";
     const phone = footer?.phone || "61 9 9999 9999";
-    const addressLines = footer?.address || [
-        "shn qu. 1 conj. a bloco a sala 1113",
-        "edifício leaptower — asa norte",
-        "brasília-df, 70701-010"
-    ];
+    const addressLines = footer?.address && footer.address.some(l => l) ? footer.address : ["", "", ""];
     const socialLinks = footer?.socialLinks || [
         { platform: "linkedin", url: "#" }
     ];
@@ -98,7 +95,7 @@ export default function Footer() {
                         ))}
                         <a href={`mailto:${email}`} className="hover:text-primary transition-colors lowercase mt-auto mb-10">{email}</a>
                     </div>
-                    <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1 uppercase">
+                    <div className="flex flex-col gap-1 lg:max-w-[328px] lg:col-span-4 xl:col-span-4 pt-1 uppercase text-[14px] lg:text-[16px]">
                         {addressLines.map((line, i) => (
                             <p key={i} className="m-0 leading-[1.3] text-black">{line}</p>
                         ))}
