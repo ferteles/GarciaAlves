@@ -51,7 +51,9 @@ ALTER TABLE "posts" ADD COLUMN "seo_description_en" text;
 ALTER TABLE "posts" ADD COLUMN "seo_ogimage_id" integer REFERENCES "media"("id");
 ALTER TABLE "posts" ADD COLUMN "noindex" integer DEFAULT 0;
 
--- Tabela do global SEO
+-- Tabela do global SEO (recria se existir com colunas erradas)
+DROP TABLE IF EXISTS "seo_keywords_pt";
+DROP TABLE IF EXISTS "seo";
 CREATE TABLE IF NOT EXISTS "seo" (
     "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
     "site_name" text DEFAULT 'Garcia Alves Advocacia',
@@ -60,15 +62,15 @@ CREATE TABLE IF NOT EXISTS "seo" (
     "twitter_handle" text DEFAULT '@garciaalvesadv',
     "default_og_image_id" integer REFERENCES "media"("id"),
     "google_verification" text,
-    "home_title_pt" text,
-    "home_description_pt" text,
-    "home_title_en" text,
-    "home_description_en" text,
+    "hometitle_pt" text,
+    "homedescription_pt" text,
+    "hometitle_en" text,
+    "homedescription_en" text,
     "home_og_image_id" integer REFERENCES "media"("id"),
-    "blog_title_pt" text,
-    "blog_description_pt" text,
-    "blog_title_en" text,
-    "blog_description_en" text,
+    "blogtitle_pt" text,
+    "blogdescription_pt" text,
+    "blogtitle_en" text,
+    "blogdescription_en" text,
     "blog_og_image_id" integer REFERENCES "media"("id"),
     "updated_at" text DEFAULT (CURRENT_TIMESTAMP),
     "created_at" text DEFAULT (CURRENT_TIMESTAMP)
@@ -77,8 +79,8 @@ CREATE TABLE IF NOT EXISTS "seo" (
 -- Tabela de palavras-chave do SEO global
 CREATE TABLE IF NOT EXISTS "seo_keywords_pt" (
     "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "parent_id" integer NOT NULL REFERENCES "seo"("id") ON DELETE CASCADE,
-    "order" integer NOT NULL,
+    "_parent_id" integer NOT NULL REFERENCES "seo"("id") ON DELETE CASCADE,
+    "_order" integer NOT NULL,
     "keyword" text
 );
 EOF
