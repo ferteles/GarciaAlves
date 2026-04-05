@@ -15,7 +15,11 @@ const imgRectangle10 = "/assets/sergio-garcia-alves.png";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
-  const { t, language } = useLanguage();
+  const { t, language, whatsapp } = useLanguage();
+
+  const whatsappUrl = whatsapp?.active && whatsapp.phoneNumber
+    ? `https://wa.me/${whatsapp.phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(whatsapp.message)}`
+    : "https://wa.me/";
   const [data, setData] = useState<any>(null);
 
   // Helper: pick the correct language field from CMS data
@@ -168,13 +172,18 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-x-16 gap-y-16 lg:gap-y-[100px]">
             {getBoxes().map((box: any, i: number) => (
-              <div key={i} className={`border-t-[2px] ${i % 2 === 0 ? 'border-primary' : 'border-black'} pt-10`}>
+              <div key={i} className="border-t-[2px] border-black pt-10">
                 <h3 className="font-handel text-[28px] lg:text-[35px] mb-6 leading-[1.2]">{box.title}</h3>
                 <p className="font-motiva text-[18px] lg:text-[20px] leading-[1.5] max-w-[510px]">{box.description}</p>
-                <div className="mt-12 flex items-center gap-6 cursor-pointer group w-fit">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-12 flex items-center gap-6 group w-fit"
+                >
                   <span className={`block h-[2px] w-[50px] lg:w-[206px] bg-black group-hover:bg-primary transition-colors shrink-0`}></span>
                   <span className="block font-handel text-[20px] lg:text-[26px] leading-none translate-y-[2px]">{box.buttonText || t.expertise.contact_btn}</span>
-                </div>
+                </a>
               </div>
             ))}
           </div>

@@ -1,6 +1,13 @@
-import Image from "next/image";
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PracticeAreas() {
+    const { whatsapp } = useLanguage();
+
+    const whatsappUrl = whatsapp?.active && whatsapp.phoneNumber
+        ? `https://wa.me/${whatsapp.phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(whatsapp.message)}`
+        : "https://wa.me/";
     const areas = [
         {
             title: "Regulatório e Tecnologia",
@@ -54,10 +61,15 @@ export default function PracticeAreas() {
                                 {area.description}
                             </p>
 
-                            <button className="mt-8 self-start flex items-center gap-4 text-foreground hover:text-primary transition-colors group">
+                            <a
+                                href={whatsappUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-8 self-start flex items-center gap-4 text-foreground hover:text-primary transition-colors group"
+                            >
                                 <span className="font-motiva text-2xl lg:text-[26px]">entre em contato</span>
                                 <span className="w-12 h-px bg-current group-hover:bg-primary transition-colors" />
-                            </button>
+                            </a>
                         </div>
                     ))}
                 </div>
