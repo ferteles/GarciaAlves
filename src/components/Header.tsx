@@ -36,7 +36,7 @@ export default function Header() {
 
     // Largura do logo
     const logoWidth = isMobile
-        ? (scrolled ? "130px" : "160px")
+        ? (scrolled ? "160px" : "200px")
         : (scrolled ? "240px" : "343px");
 
     const toggleLanguage = () => {
