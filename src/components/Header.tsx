@@ -36,7 +36,7 @@ export default function Header() {
 
     // Largura do logo
     const logoWidth = isMobile
-        ? (scrolled ? "110px" : "140px")
+        ? (scrolled ? "130px" : "160px")
         : (scrolled ? "240px" : "343px");
 
     const toggleLanguage = () => {
@@ -98,7 +98,7 @@ export default function Header() {
                         onClick={toggleLanguage}
                         className="text-primary font-bold hover:opacity-80 transition-opacity uppercase whitespace-nowrap bg-gray-100 px-3 py-1 rounded cursor-pointer"
                     >
-                        {language === "pt" ? "PT / en" : "pt / EN"}
+                        PT / EN
                     </button>
                 </nav>
 
@@ -108,7 +108,7 @@ export default function Header() {
                         onClick={toggleLanguage}
                         className="text-primary font-bold text-xs whitespace-nowrap bg-gray-100 px-2 py-1 rounded"
                     >
-                        {language === "pt" ? "PT / en" : "pt / EN"}
+                        PT / EN
                     </button>
                     <button
                         className="text-black p-1 focus:outline-none"
