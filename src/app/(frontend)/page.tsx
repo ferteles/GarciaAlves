@@ -223,22 +223,45 @@ export default function Home() {
         <div className="max-w-[1512px] mx-auto w-full">
           <h2 className="font-handel text-[40px] lg:text-[50px] mb-16 lg:ml-2">{lawyersTitle}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-[47px] gap-y-12">
-            {getLawyers().map((lawyer: any, i: number) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="aspect-[343/402] w-full overflow-hidden bg-[#d9d9d9] mb-8 relative">
-                  <img src={lawyer.image?.url || imgRectangle10} alt={lawyer.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            {getLawyers().map((lawyer: any, i: number) => {
+              const isFounder = lawyer.role?.toLowerCase().includes('fundador');
+              if (isFounder) {
+                return (
+                  <div key={i} className="group cursor-pointer sm:col-span-2 flex flex-col sm:flex-row gap-8">
+                    <div className="aspect-[343/402] sm:aspect-auto sm:w-[220px] lg:w-[291px] flex-shrink-0 overflow-hidden bg-[#d9d9d9] relative self-start">
+                      <img src={lawyer.image?.url || imgRectangle10} alt={lawyer.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <h3 className="font-handel text-[24px] lg:text-[29.98px] leading-[1.1] mb-2 border-t-[2px] border-[#85d7a974] pt-5">{lawyer.name}</h3>
+                      <h4 className="font-motiva font-bold uppercase text-[14px] lg:text-[16px] text-white mb-4">{lawyer.role}</h4>
+                      <p className="font-motiva text-[14px] lg:text-[16px] leading-[1.5] text-white mb-6 columns-2 gap-8">
+                        {lawyer.bio}
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        <a href={`mailto:${lawyer.email}`} className="font-motiva text-[14px] lg:text-[15px] hover:text-accent transition-colors">{lawyer.email}</a>
+                        <a href={lawyer.linkedin} className="font-handel text-[18px] lg:text-[19.1px] underline hover:text-accent transition-colors">Linkedin</a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div key={i} className="group cursor-pointer">
+                  <div className="aspect-[343/402] w-full overflow-hidden bg-[#d9d9d9] mb-8 relative">
+                    <img src={lawyer.image?.url || imgRectangle10} alt={lawyer.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <h3 className="font-handel text-[24px] lg:text-[29.98px] leading-[1.1] mb-2 border-t-[2px] border-[#85d7a974] pt-5">{lawyer.name}</h3>
+                  <h4 className="font-motiva font-bold uppercase text-[14px] lg:text-[16px] text-white mb-4">{lawyer.role}</h4>
+                  <p className="font-motiva text-[14px] lg:text-[16px] leading-[1.5] text-white overflow-hidden mb-6 h-[100px] lg:max-w-[291px]">
+                    {lawyer.bio}
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <a href={`mailto:${lawyer.email}`} className="font-motiva text-[14px] lg:text-[15px] hover:text-accent transition-colors">{lawyer.email}</a>
+                    <a href={lawyer.linkedin} className="font-handel text-[18px] lg:text-[19.1px] underline hover:text-accent transition-colors">Linkedin</a>
+                  </div>
                 </div>
-                <h3 className="font-handel text-[24px] lg:text-[29.98px] leading-[1.1] mb-2 border-t-[2px] border-[#85d7a974] pt-5">{lawyer.name}</h3>
-                <h4 className="font-motiva font-bold uppercase text-[14px] lg:text-[16px] text-white mb-4">{lawyer.role}</h4>
-                <p className="font-motiva text-[14px] lg:text-[16px] leading-[1.5] text-white overflow-hidden mb-6 h-[100px] lg:max-w-[291px]">
-                  {lawyer.bio}
-                </p>
-                <div className="flex flex-col gap-2">
-                  <a href={`mailto:${lawyer.email}`} className="font-motiva text-[14px] lg:text-[15px] hover:text-accent transition-colors">{lawyer.email}</a>
-                  <a href={lawyer.linkedin} className="font-handel text-[18px] lg:text-[19.1px] underline hover:text-accent transition-colors">Linkedin</a>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
