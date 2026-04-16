@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { pt } from '@payloadcms/translations/languages/pt'
@@ -52,7 +53,7 @@ export default buildConfig({
     { ...Seo, hooks: { ...Seo.hooks, afterChange: [...(Seo.hooks?.afterChange || []), addGlobalAuditLog('SEO')] } }
   ],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'garcia-alves-secret-key',
+  secret: process.env.PAYLOAD_SECRET!,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -62,6 +63,22 @@ export default buildConfig({
     },
     push: true,
     migrationDir: path.resolve(dirname, 'migrations'),
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'contato@garciaalves.adv.br',
+    defaultFromName: process.env.SMTP_FROM_NAME || 'Garcia & Alves',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT) || 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      secure: false,
+      tls: {
+        rejectUnauthorized: true,
+      },
+    },
   }),
   sharp,
   plugins: process.env.S3_BUCKET ? [
