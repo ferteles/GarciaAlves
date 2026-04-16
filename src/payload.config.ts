@@ -61,7 +61,7 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URL || 'file:./garcia-alves.db',
     },
-    push: true,
+    push: process.env.NODE_ENV !== 'production',
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   email: nodemailerAdapter({
