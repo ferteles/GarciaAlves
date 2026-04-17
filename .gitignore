@@ -50,3 +50,11 @@ payload_install_log.txt
 
 # Editor configs
 .cursor/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright-report-ui/
+playwright/.auth/

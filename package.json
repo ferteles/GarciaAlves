@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "^3.83.0",
@@ -23,8 +25,9 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
