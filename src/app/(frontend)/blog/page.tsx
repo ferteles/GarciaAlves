@@ -11,6 +11,9 @@ import { dictionaries, Language } from "@/i18n/dictionaries";
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies()
+  const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as Language) || 'pt'
+
   let seo: any = null
   try {
     const payload = await getPayload({ config: configPromise })
@@ -19,11 +22,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const siteUrl   = seo?.siteUrl || 'https://garciaalves.adv.br'
   const siteName  = seo?.siteName || 'Garcia Alves Advocacia'
-  const title     = seo?.blogTitle_pt || 'Blog Jurídico | Artigos sobre Direito Regulatório, Digital e Empresarial'
-  const desc      = seo?.blogDescription_pt || 'Artigos jurídicos e análises sobre Direito Regulatório, Tecnologia, LGPD, Inteligência Artificial e Advocacia Empresarial. Insights produzidos por advogados especializados em Brasília-DF.'
-  const ogImage   = seo?.blogOgImage?.url || seo?.defaultOgImage?.url || '/assets/og-default.png'
+  
+  // SEO fields with language awareness
+  const title = seo?.[`blogTitle_${currentLanguage}`] || 
+                seo?.blogTitle_pt || 
+                'Blog Jurídico | Artigos sobre Direito Regulatório, Digital e Empresarial'
+  
+  const desc = seo?.[`blogDescription_${currentLanguage}`] || 
+               seo?.blogDescription_pt || 
+               'Artigos jurídicos e análises sobre Direito Regulatório, Tecnologia, LGPD, Inteligência Artificial e Advocacia Empresarial. Insights produzidos por advogados especializados em Brasília-DF.'
+
+  const ogImage = seo?.blogOgImage?.url || seo?.defaultOgImage?.url || '/assets/og-default.png'
 
   return {
+    metadataBase: new URL(siteUrl),
     title,
     description: desc,
     alternates: { canonical: `${siteUrl}/blog` },
@@ -32,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: desc,
       url: `${siteUrl}/blog`,
       siteName,
-      locale: 'pt_BR',
+      locale: currentLanguage === 'en' ? 'en_US' : 'pt_BR',
       type: 'website',
       images: [{ url: ogImage, width: 1200, height: 630, alt: `Blog — ${siteName}` }],
     },

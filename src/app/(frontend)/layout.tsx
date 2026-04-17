@@ -5,11 +5,15 @@ import { getPayload } from "payload"
 import configPromise from '@payload-config'
 import { LanguageProvider } from "@/context/LanguageContext";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import { cookies } from "next/headers";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies()
+  const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as 'pt' | 'en') || 'pt'
+
   const fallbackUrl   = 'https://garciaalves.adv.br'
   const fallbackTitle = 'Garcia Alves Advocacia | Direito Empresarial, Regulatório e Tecnologia'
   const fallbackDesc  = 'Escritório de advocacia especializado em Direito Empresarial, Regulatório e Tecnologia em Brasília-DF. Combinamos visão estratégica e atuação técnica para empresas, empreendedores e instituições.'
@@ -23,11 +27,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteUrl    = seo?.siteUrl       || fallbackUrl
   const siteName   = seo?.siteName      || 'Garcia Alves Advocacia'
   const template   = seo?.titleTemplate || '%s | Garcia Alves Advocacia'
-  const title      = seo?.homeTitle_pt  || fallbackTitle
-  const desc       = seo?.homeDescription_pt || fallbackDesc
+  
+  // SEO fields with language awareness
+  const title      = seo?.[`homeTitle_${currentLanguage}`] || seo?.homeTitle_pt || fallbackTitle
+  const desc       = seo?.[`homeDescription_${currentLanguage}`] || seo?.homeDescription_pt || fallbackDesc
+  
   const ogImageUrl = seo?.homeOgImage?.url || seo?.defaultOgImage?.url || '/assets/og-default.png'
   const twitter    = seo?.twitterHandle || '@garciaalvesadv'
-  const keywords   = seo?.keywords_pt?.map((k: any) => k.keyword).filter(Boolean) || [
+  
+  const keywordsField = seo?.[`keywords_${currentLanguage}`] || seo?.keywords_pt
+  const keywords = keywordsField?.map((k: any) => k.keyword).filter(Boolean) || [
     'advocacia empresarial', 'direito regulatório', 'direito digital',
     'tecnologia e inovação', 'escritório de advocacia Brasília', 'LGPD', 'Garcia Alves Advocacia',
   ]
@@ -52,8 +61,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: 'website',
-      locale: 'pt_BR',
-      alternateLocale: 'en_US',
+      locale: currentLanguage === 'en' ? 'en_US' : 'pt_BR',
+      alternateLocale: currentLanguage === 'en' ? 'pt_BR' : 'en_US',
       url: siteUrl,
       siteName,
       title,

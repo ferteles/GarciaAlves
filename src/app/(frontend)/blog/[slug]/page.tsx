@@ -25,7 +25,19 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const resolvedParams = await params
+  const cookieStore = await cookies()
+  const currentLanguage = (cookieStore.get('NEXT_LOCALE')?.value as Language) || 'pt'
+  
   const payload = await getPayload({ config: configPromise })
+
+  // Fetch SEO global for site settings
+  let seo: any = null
+  try {
+    seo = await (payload as any).findGlobal({ slug: 'seo' })
+  } catch {}
+  
+  const siteUrl = seo?.siteUrl || 'https://garciaalves.adv.br'
+  const siteName = seo?.siteName || 'Garcia Alves Advocacia'
 
   const postsData = await payload.find({
     collection: 'posts' as any,
@@ -36,15 +48,22 @@ export async function generateMetadata(
   const post: any = postsData.docs[0]
   if (!post) return {}
 
-  // Usa campos SEO de override quando preenchidos, senão cai no conteúdo do artigo
-  const title = post.seo_title_pt || post.title_pt || post.title || ''
-  const excerpt = post.excerpt_pt || post.excerpt || ''
-  const description = (post.seo_description_pt || excerpt || '').slice(0, 160)
-    || `Artigo jurídico — ${title} | Garcia Alves Advocacia`
+  // Usa campos SEO de override quando preenchidos, respeitando o idioma
+  const title = post[`seo_title_${currentLanguage}`] || 
+                post[`title_${currentLanguage}`] || 
+                post.seo_title_pt || 
+                post.title_pt || 
+                post.title || ''
+  
+  const excerpt = post[`excerpt_${currentLanguage}`] || post.excerpt_pt || post.excerpt || ''
+  const description = (post[`seo_description_${currentLanguage}`] || post.seo_description_pt || excerpt || '').slice(0, 160)
+    || `Artigo jurídico — ${title} | ${siteName}`
+    
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`
   const imageUrl = post.seo_ogImage?.url || post.image?.url || `${siteUrl}/assets/og-default.png`
 
   return {
+    metadataBase: new URL(siteUrl),
     title,
     description,
     ...(post.noindex ? { robots: { index: false, follow: false } } : {}),
@@ -53,11 +72,11 @@ export async function generateMetadata(
       title,
       description,
       url: canonicalUrl,
-      siteName: 'Garcia Alves Advocacia',
-      locale: 'pt_BR',
+      siteName,
+      locale: currentLanguage === 'en' ? 'en_US' : 'pt_BR',
       type: 'article',
       publishedTime: post.date,
-      authors: ['Garcia Alves Advocacia'],
+      authors: [siteName],
       images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
