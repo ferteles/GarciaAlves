@@ -8,71 +8,51 @@ export const MainMenu: GlobalConfig = {
   },
   fields: [
     {
-      type: 'tabs',
-      tabs: [
+      name: 'navItems',
+      label: 'Itens do Menu',
+      type: 'array',
+      fields: [
         {
-          label: '🇧🇷 Português',
+          type: 'row',
           fields: [
             {
-              name: 'items_pt',
-              label: 'Itens do Menu (Português)',
-              type: 'array',
-              fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                  label: 'Rótulo (Label)',
-                },
-                {
-                  name: 'link',
-                  type: 'text',
-                  required: true,
-                  label: 'Link (ex: #areas ou /blog)',
-                },
-              ],
-              defaultValue: [
-                { label: 'quem somos', link: '#quem-somos' },
-                { label: 'áreas de atuação', link: '#areas' },
-                { label: 'advogados', link: '#advogados' },
-                { label: 'contato', link: '#contato' },
-                { label: 'blog', link: '/blog' },
-              ],
+              name: 'label_pt',
+              label: 'Rótulo (PT)',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '33%',
+              },
+            },
+            {
+              name: 'label_en',
+              label: 'Label (EN)',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '33%',
+              },
+            },
+            {
+              name: 'link',
+              label: 'Link (E-mail ou URL)',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '33%',
+                description: 'Ex: #quem-somos, #areas ou /midia',
+              },
             },
           ],
         },
-        {
-          label: '🇺🇸 English',
-          fields: [
-            {
-              name: 'items_en',
-              label: 'Menu Items (English)',
-              type: 'array',
-              fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                  label: 'Label',
-                },
-                {
-                  name: 'link',
-                  type: 'text',
-                  required: true,
-                  label: 'Link (e.g., #areas or /blog)',
-                }
-              ],
-              defaultValue: [
-                { label: 'about us', link: '#quem-somos' },
-                { label: 'expertise', link: '#areas' },
-                { label: 'lawyers', link: '#advogados' },
-                { label: 'contact', link: '#contato' },
-                { label: 'blog', link: '/blog' },
-              ],
-            },
-          ],
-        }
-      ]
-    }
+      ],
+      defaultValue: [
+        { label_pt: 'quem somos', label_en: 'about us', link: '#quem-somos' },
+        { label_pt: 'áreas de atuação', label_en: 'expertise', link: '#areas' },
+        { label_pt: 'advogados', label_en: 'lawyers', link: '#advogados' },
+        { label_pt: 'mídia', label_en: 'media', link: '/midia' },
+        { label_pt: 'contato', label_en: 'contact', link: '#contato' },
+      ],
+    },
   ],
 }

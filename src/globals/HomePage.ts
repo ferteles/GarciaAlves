@@ -14,6 +14,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Cabeçalho (Hero)',
           fields: [
+            { name: 'show_hero', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             {
               type: 'collapsible',
               label: '🇧🇷 Português',
@@ -39,6 +40,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Sobre Nós',
           fields: [
+            { name: 'show_about', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             {
               type: 'collapsible',
               label: '🇧🇷 Português',
@@ -70,6 +72,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Áreas de Atuação',
           fields: [
+            { name: 'show_areas', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             {
               type: 'collapsible',
               label: '🇧🇷 Português',
@@ -130,6 +133,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Banner Fixo',
           fields: [
+            { name: 'show_banner', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             { name: 'bannerImage', label: 'Imagem do Banner Fixo', type: 'upload', relationTo: 'media' },
           ]
         },
@@ -137,6 +141,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Números e Estatísticas',
           fields: [
+            { name: 'show_stats', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             {
               type: 'collapsible',
               label: '🇧🇷 Português',
@@ -195,6 +200,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Advogados',
           fields: [
+            { name: 'show_lawyers', label: 'Exibir esta seção?', type: 'checkbox', defaultValue: true },
             {
               type: 'collapsible',
               label: '🇧🇷 Português',
@@ -237,6 +243,13 @@ export const HomePage: GlobalConfig = {
                 },
               ],
             },
+          ]
+        },
+        // ─── PUBLICAÇÕES ────────────────────────────────────
+        {
+          label: 'Publicações (Blog)',
+          fields: [
+            { name: 'show_blog', label: 'Exibir seção de publicações (blog)?', type: 'checkbox', defaultValue: true },
           ]
         },
       ]

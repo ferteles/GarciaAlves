@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from "@/context/LanguageContext";
 
-const imgGroup = "/assets/Group2.svg";
+const imgGroup = "/assets/footer-logo-new.png";
 const imgRectangle27 = "/assets/6e0b5c610eaa9e9576dc2f40d3cc87fd56fab813.png";
 
 export default function Footer() {
@@ -118,7 +118,7 @@ export default function Footer() {
             </div>
 
             <div className="w-full mt-10 md:mt-20 flex justify-center pb-8 lg:pb-0">
-                <img src={imgGroup} alt="" className="w-full h-auto object-cover" />
+                <img src={imgGroup} alt="Garcia Alves Logo" className="w-[85%] md:w-[70%] lg:w-[60%] max-w-[900px] h-auto" />
             </div>
         </footer>
     );

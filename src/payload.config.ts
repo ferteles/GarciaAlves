@@ -65,8 +65,8 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'contato@garciaalves.adv.br',
-    defaultFromName: process.env.SMTP_FROM_NAME || 'Garcia & Alves',
+    defaultFromAddress: 'nao-responda@tauatech.com',
+    defaultFromName: 'Site Garcia Alves',
     transportOptions: {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,

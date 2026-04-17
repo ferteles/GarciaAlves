@@ -51,6 +51,15 @@ ALTER TABLE "posts" ADD COLUMN "seo_description_en" text;
 ALTER TABLE "posts" ADD COLUMN "seo_ogimage_id" integer REFERENCES "media"("id");
 ALTER TABLE "posts" ADD COLUMN "noindex" integer DEFAULT 0;
 
+-- Colunas de visibilidade da Home Page
+ALTER TABLE "home_page" ADD COLUMN "show_hero" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_about" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_areas" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_banner" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_stats" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_lawyers" integer DEFAULT 1;
+ALTER TABLE "home_page" ADD COLUMN "show_blog" integer DEFAULT 1;
+
 -- Tabela do global SEO (recria se existir com colunas erradas)
 DROP TABLE IF EXISTS "seo_keywords_pt";
 DROP TABLE IF EXISTS "seo";
@@ -82,6 +91,16 @@ CREATE TABLE IF NOT EXISTS "seo_keywords_pt" (
     "_parent_id" integer NOT NULL REFERENCES "seo"("id") ON DELETE CASCADE,
     "_order" integer NOT NULL,
     "keyword" text
+);
+
+-- Nova estrutura do Menu Principal Sincronizado
+CREATE TABLE IF NOT EXISTS "main_menu_nav_items" (
+    "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "_parent_id" integer NOT NULL REFERENCES "main_menu"("id") ON DELETE CASCADE,
+    "_order" integer NOT NULL,
+    "label_pt" text NOT NULL,
+    "label_en" text NOT NULL,
+    "link" text NOT NULL
 );
 EOF
 

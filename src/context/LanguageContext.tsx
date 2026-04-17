@@ -8,9 +8,14 @@ export interface MenuItem {
   link: string;
 }
 
+export interface NavItem {
+  label_pt: string;
+  label_en: string;
+  link: string;
+}
+
 export interface MenuData {
-  items_pt: MenuItem[];
-  items_en: MenuItem[];
+  navItems: NavItem[];
 }
 
 export interface FooterData {
@@ -99,8 +104,11 @@ export function LanguageProvider({
   const t = dictionaries[language];
 
   // Dynamic menu items from Payload
-  const menuItems = initialMenu 
-    ? (language === "pt" ? initialMenu.items_pt : initialMenu.items_en)
+  const menuItems: MenuItem[] = initialMenu?.navItems 
+    ? initialMenu.navItems.map((item: any) => ({
+        label: language === "pt" ? item.label_pt : item.label_en,
+        link: item.link
+      }))
     : [];
 
   // Localized footer data
@@ -150,7 +158,10 @@ export function LanguageProvider({
         language: "pt", 
         setLanguage, 
         t: dictionaries.pt, 
-        menuItems: initialMenu?.items_pt || [], 
+        menuItems: initialMenu?.navItems?.map((item: any) => ({
+          label: item.label_pt,
+          link: item.link
+        })) || [], 
         footer: defaultFooter,
         whatsapp: defaultWhatsApp
       }}>
